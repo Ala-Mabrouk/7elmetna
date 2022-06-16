@@ -77,7 +77,7 @@ const userLogin = (req, res) => {
 }
 
 const userInfo = (req, res) => {
-    console.log("signUp user controller is called");
+    console.log("userInfo controller is called");
     console.log(req);
 
 
