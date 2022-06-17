@@ -1,6 +1,7 @@
 const connectionDb = require("../connectionDb");
 const jwt = require("jsonwebtoken");
-var mailtemp;
+
+var mailtemp
 function getMailFromToken(req) {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
@@ -9,17 +10,20 @@ function getMailFromToken(req) {
         if (!err) {
             //     console.log(response);
             console.log(response.email);
-            mailtemp = response.email + "";
+            mailtemp = response.email + ""
         } else {
             console.log(err);
+
         }
+
     });
 }
+
 const addProject = (req, res) => {
     let tempProjectInfo = req.body;
 
     // getting  domaine-id from domaine-label:
-    let domaineID = "125"
+    let domaineID
     connectionDb.query(
         "select domaineId from domaines where domaineLabelle=?",
         [tempProjectInfo.projectDomaine],
@@ -37,7 +41,7 @@ const addProject = (req, res) => {
     //need to get user Id from email:
     getMailFromToken(req);
     console.log("this is mail temp : " + mailtemp);
-    let userID = "123"
+    var userID = "123"
 
     connectionDb.query(
         "select userId from users where userEmail=?",
@@ -53,7 +57,7 @@ const addProject = (req, res) => {
         }
     );
     let testQuery =
-        "select projectId from Projects p, domaines d where p.projectShortName=? and p.projectDomaine=d.domaineId and d.domaineLabelle=? ";
+        "select projectId from projects p, domaines d where p.projectShortName=? and p.projectDomaine=d.domaineId and d.domaineLabelle=? ";
     connectionDb.query(
         testQuery,
         [tempProjectInfo.projectShortName, tempProjectInfo.projectDomaine],
@@ -62,7 +66,7 @@ const addProject = (req, res) => {
                 //insert new project
                 console.log(userID + "-------" + domaineID);
                 insertQuery =
-                    "Insert into Projects(projectShortName,projectFullName,projectShortDescription,projectFullDescription,projectLocation,projectDomaine,projectPhotosURL,projectVedioURL,projectOwner) values(?,?,?,?,?,?,?,?,?)";
+                    "Insert into projects(projectShortName,projectFullName,projectShortDescription,projectFullDescription,projectLocation,projectDomaine,projectDemand,projectLimits,projectOwner) values(?,?,?,?,?,?,?,?,?)";
                 connectionDb.query(
                     insertQuery,
                     [
@@ -72,13 +76,13 @@ const addProject = (req, res) => {
                         tempProjectInfo.projectFullDescription,
                         tempProjectInfo.projectLocation,
                         domaineID,
-                        tempProjectInfo.projectPhotosURL,
-                        tempProjectInfo.projectVedioURL,
+                        tempProjectInfo.projectDemand,
+                        tempProjectInfo.projectLimits,
                         userID,
                     ],
                     (err, resInsert) => {
                         if (!err) {
-                            return res.status(200).json("Project is saved in data base");
+                            //return res.status(200).json("Project is saved in data base");
                         } else {
                             return res.status(500).json(err);
                         }
@@ -89,6 +93,49 @@ const addProject = (req, res) => {
             }
         }
     );
+
+    // in case of some media files 
+    if (tempProjectInfo.mediaURL != null) {
+        console.log("checked the media");
+        //need to move media to specific folder 
+        // TODO:**************
+
+        //getting projectID
+        connectionDb.query(
+            "select projectId from projects p, domaines d where p.projectShortName=? and p.projectDomaine=d.domaineId and d.domaineLabelle=? ",
+            [tempProjectInfo.projectShortName, tempProjectInfo.projectDomaine],
+            (err, resQu) => {
+                if (!err) {
+                    if (resQu.length > 0) {
+                        var today = new Date();
+                        var currentDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+                        insertQuery =
+                            "Insert into infoMedias(addedDate,mediaURL,relatedTo,addedBy) values(?,?,?,?)";
+                        connectionDb.query(
+                            insertQuery,
+                            [
+                                currentDate,
+                                tempProjectInfo.mediaURL,
+                                resQu[0].projectId,
+                                userID,
+                            ],
+                            (err, resInsert) => {
+                                if (!err) {
+                                    return res.status(200).json("media and project are saved in data base");
+                                } else {
+                                    return res.status(500).json(err);
+                                }
+                            }
+                        );
+                    }
+                } else {
+                    console.log(err);
+                }
+            }
+        );
+    }
+    return res.status(200).json("Project is saved in data base");
+
 };
 const getProjectDetails = (req, res) => { };
 const getMyProjectDetails = (req, res) => { };

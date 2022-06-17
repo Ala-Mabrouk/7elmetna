@@ -15,7 +15,7 @@ const userSignUp = (req, res) => {
     let newUser = req.body;
     //test existance of user
     var cquery = "select * from users where userEmail=?";
-    connction.query(cquery, [newUser.email], (err, result) => {
+    connction.query(cquery, [newUser.userEmail], (err, result) => {
         if (!err) {
             if (result.length <= 0) {
                 //hashing password 
@@ -23,7 +23,7 @@ const userSignUp = (req, res) => {
 
                 //creation of new user
                 var query =
-                    "insert into users(userName,userLastName,userEmail,userPassword,userPhone) values(?,?,?,?,?)";
+                    "insert into users(userName,userLastName,userEmail,userPassword,userPhone,userBirthDate) values(?,?,?,?,?,?)";
                 connction.query(
                     query,
                     [
@@ -32,12 +32,14 @@ const userSignUp = (req, res) => {
                         newUser.userEmail,
                         cryptedpass,
                         newUser.userPhone,
+                        newUser.userBirthDate // need to be yyyy-mm-dd
                     ],
                     (err1, queryresult) => {
                         if (!err1) {
                             return res.status(200).json("user is saved in data base");
                         } else {
-                            return res.status(500).json(err);
+                            console.log("err in insert");
+                            return res.status(500).json(err1);
                         }
                     }
                 );

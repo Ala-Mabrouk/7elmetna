@@ -27,4 +27,18 @@ function checkRole(req, res, next) {
     }
     next();
 }
+function getMailFromToken(req) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
+    jwt.verify(token, process.env.ACCESS_TOKEN, (err, response) => {
+        if (!err) {
+            //     console.log(response);
+            console.log(response.email);
+            mailtemp = response.email + "";
+        } else {
+            console.log(err);
+        }
+    });
+}
 module.exports = { authenticateToken: authenticateToken, check_role: checkRole };
