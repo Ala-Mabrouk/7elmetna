@@ -6,5 +6,6 @@ const authentication = require("../Services/authentication")
 router.post('/newProject', authentication.authenticateToken, projectControl.addProject)
 router.get('/myProject/:id', authentication.authenticateToken, projectControl.getMyProjectDetails)
 router.get('/:id', projectControl.getProjectDetails)
+router.get('/getProjectDetails/:idProject', projectControl.getProjectDetails)
 
 module.exports = router

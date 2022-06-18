@@ -1,7 +1,11 @@
 const connectionDb = require("../connectionDb");
 const jwt = require("jsonwebtoken");
-
+const util = require('util');
+const query = util.promisify(connectionDb.query).bind(connectionDb);
 var mailtemp
+
+
+
 function getMailFromToken(req) {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
@@ -137,7 +141,84 @@ const addProject = (req, res) => {
     return res.status(200).json("Project is saved in data base");
 
 };
-const getProjectDetails = (req, res) => { };
-const getMyProjectDetails = (req, res) => { };
+const getProjectDetails = async (req, res) => {
+    let projectFullData = ""
+    const projectId = req.params.idProject
+    queryDataProject = "select p.*,d.domaineLabelle,sum(c.contributionValue) as sumContributions from projects p, contributions c,domaines d where p.projectId=? and c.relatedTo=? and p.projectDomaine=d.domaineId ";
+    queryMediaProject = "select m.addedDate,m.mediaURL,m.addedBy from infoMedias m where m.relatedTo=? "
 
-module.exports = { addProject, getProjectDetails, getMyProjectDetails };
+    try {
+        try {
+            projectFullData = await
+                query(queryDataProject, [projectId, projectId])
+        } catch (errDataProjet) {
+            console.log(errDataProjet);
+        }
+        // await new Promise(function (resolve, reject) {
+        //     connectionDb.query(queryDataProject, [projectId, projectId], (errDataProjet, resDataProjet) => {
+        //         if (!errDataProjet) {
+        //             // projectFullData = resDataProjet[0]
+        //             // console.log(projectFullData);
+        //             resolve(resDataProjet[0]);
+
+
+        //         } else { 
+        //             console.log(errDataProjet);
+        //             reject(new Error(errDataProjet));
+        //         }
+        //     })
+        // }).then(function (results) {
+        //     projectFullData = results
+        // })
+        //     .catch(function (err) {
+        //         console.log("Promise rejection error: " + err);
+        //     })
+
+        // console.log("second: ")
+        // console.log(projectFullData)
+        // console.log("second: ")
+
+        // connectionDb.query(queryMediaProject, [projectId], (errMediaInfo, resMediaInfo) => {
+        //     if (!errMediaInfo) {
+        //         projectFullData.listMedia = resMediaInfo
+        //         console.log(projectFullData);
+
+        //     } else {
+        //         console.log(errMediaInfo);
+        //     }
+
+        // })
+        try {
+            projectFullData[0].listMedia = await
+                query(queryMediaProject, [projectId])
+        } catch (errMediaInfo) {
+            console.log(errMediaInfo);
+        }
+        // console.log("theird: ") 
+        // console.log(projectFullData)
+        // console.log("theird: ")
+        console.log("the project data is :");
+        console.log(projectFullData);
+    }
+    catch (codeErr) {
+        console.log(codeErr);
+    } finally {
+        connectionDb.end()
+    }
+    if (projectFullData[0].projectId != null) {
+        return res.status(200).json(projectFullData)
+    } else {
+        return res.status(500).json("smthing bad happend !")
+    }
+
+};
+const getMyProjectDetails = (req, res) => {
+
+};
+
+const getProjectsFromDomaine = (req, res) => {
+    domaineName = req.params.domaineType
+
+}
+
+module.exports = { addProject, getProjectDetails, getMyProjectDetails, getProjectsFromDomaine };
