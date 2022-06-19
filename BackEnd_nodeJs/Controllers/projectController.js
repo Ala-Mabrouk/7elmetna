@@ -202,8 +202,6 @@ const getProjectDetails = async (req, res) => {
     }
     catch (codeErr) {
         console.log(codeErr);
-    } finally {
-        connectionDb.end()
     }
     if (projectFullData[0].projectId != null) {
         return res.status(200).json(projectFullData)
@@ -219,6 +217,20 @@ const getMyProjectDetails = (req, res) => {
 const getProjectsFromDomaine = (req, res) => {
     domaineName = req.params.domaineType
 
-}
+};
+const getAllProjects = async (req, res) => {
+    let projectFullData
+    queryDataProject = "select p.*,d.domaineLabelle,sum(c.contributionValue)as sumContributions,count(c.contributionValue)  as nbContributions  from projects p, contributions c,domaines d where c.relatedTo=p.projectId and p.projectDomaine=d.domaineId ";
+    try {
+        projectFullData = await
+            query(queryDataProject)
+        return res.status(200).json(projectFullData)
+    } catch (errDataProjet) {
+        console.log(errDataProjet);
+        return res.status(500).json("smthing bad happend !")
+    }
 
-module.exports = { addProject, getProjectDetails, getMyProjectDetails, getProjectsFromDomaine };
+
+};
+
+module.exports = { addProject, getProjectDetails, getMyProjectDetails, getProjectsFromDomaine, getAllProjects };
