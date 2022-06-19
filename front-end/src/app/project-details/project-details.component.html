@@ -56,17 +56,28 @@
     </div>
     <div class="row">
       <div class="col-6">
-        <img
-          src="../../assets/qrcode.png"
-          alt=""
-          width="150px"
-          class="rounded mx-auto d-block"
-        />
-        <div class="d-grid gap-2 col-6 mx-auto">
-          <button class="btn btn-primary" type="button">
-            scanner et Soutenir
-          </button>
+        <form>
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label"
+                >Saisir le montant
+              </label>
+              <br />
+              <input
+                type="email"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              />
+            </div>
 
+            <button class="btn btn-primary" type="submit">
+              Generer Qr Code et et Soutenir
+            </button>
+          </div>
+        </form>
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <br />
           <p class="text-center">ــــــــــ ou bien ــــــــــ</p>
           <button class="btn btn-primary" type="button">
             Remplir le formuaire
@@ -74,7 +85,12 @@
         </div>
       </div>
       <div class="col-6 mt-5">
-        <iframe src="https://www.youtube.com/embed/tgbNymZ7vqY" height="200px" width="500px"> </iframe>
+        <iframe
+          src="https://www.youtube.com/embed/tgbNymZ7vqY"
+          height="200px"
+          width="500px"
+        >
+        </iframe>
       </div>
     </div>
   </div>

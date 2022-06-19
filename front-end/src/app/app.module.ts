@@ -10,6 +10,7 @@ import { ProjectDetailsComponent } from './project-details/project-details.compo
 import { AddProjectComponent } from './add-project/add-project.component';
 import { SloganComponent } from './slogan/slogan.component';
 import { MyProjectComponent } from './my-project/my-project.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MyProjectComponent } from './my-project/my-project.component';
     AddProjectComponent,
     SloganComponent,
     MyProjectComponent,
+    PageNotFoundComponent,
 
   ],
   imports: [
