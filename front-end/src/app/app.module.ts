@@ -7,6 +7,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AllProjectComponent } from './all-project/all-project.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
+import { AddProjectComponent } from './add-project/add-project.component';
+import { SloganComponent } from './slogan/slogan.component';
+import { MyProjectComponent } from './my-project/my-project.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +18,9 @@ import { ProjectDetailsComponent } from './project-details/project-details.compo
     HomePageComponent,
     AllProjectComponent,
     ProjectDetailsComponent,
+    AddProjectComponent,
+    SloganComponent,
+    MyProjectComponent,
 
   ],
   imports: [

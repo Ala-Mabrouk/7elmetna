@@ -1,0 +1,56 @@
+<app-navbar></app-navbar>
+<app-slogan></app-slogan>
+<div class="container">
+  <form class="shadow p-3 mb-5 bg-body rounded">
+    <h5 class="card-title text-center">Ajouter un nouveau  projet</h5>
+
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Nom court de projet</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Nom complet projet</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Courte description </label>
+      <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+      </div>
+      <small> *  Ne depasser pas 100 caracteres </small>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Description </label>
+      <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Monatant demandé</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Domaine</label> <br>
+      <div class="btn-group">
+        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          ــــــــــchoisir votre domaine d'activité ـــــــــ
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><a class="dropdown-item" href="#">Santé</a></li>
+          <li><a class="dropdown-item" href="#">Entreprenariat</a></li>
+          <li><a class="dropdown-item" href="#">Environnement</a></li>
+          <li><a class="dropdown-item" href="#">Artisanat</a></li>
+          <li><a class="dropdown-item" href="#">Technologies </a></li>
+          <li><a class="dropdown-item" href="#">Autres </a></li>
+  
+        </ul>
+      </div>     </div>
+
+    
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">je declare sur l'honneur que tous ces informations sont corrects </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

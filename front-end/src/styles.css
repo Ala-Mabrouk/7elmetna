@@ -1,2 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
 
+:root{
+    --primary-color : #24ADB4;
+    --primary-color-hover : #1b9096;
+    --secondary-color : #CB1545;
+    --secondary-color-hover : #a01339;
+
+  }
+  .btn-primary{
+    background-color: var( --primary-color);
+    border: var( --primary-color);
+
+  }
+  .btn-secondary{
+    background-color: var( --secondary-color);
+    border: var( --secondary-color);
+
+  }
+  .btn-secondary:hover{
+    background-color: var( --secondary-color-hover);
+    border: var( --secondary-color-hover);
+
+  }
+  .btn-primary:hover  {
+    background-color: var( --primary-color-hover);
+
+  }
+  .btn-primary::after {
+    background-color: var( --primary-color-hover);
+
+  }
+  /* body {
+    background-color: var(--main-bg-color);
+  } */
