@@ -144,7 +144,7 @@ const addProject = (req, res) => {
 const getProjectDetails = async (req, res) => {
     let projectFullData = ""
     const projectId = req.params.idProject
-    queryDataProject = "select p.*,d.domaineLabelle,sum(c.contributionValue) as sumContributions from projects p, contributions c,domaines d where p.projectId=? and c.relatedTo=? and p.projectDomaine=d.domaineId ";
+    queryDataProject = "select p.*,d.domaineLabelle,sum(c.contributionValue) as sumContributions, count(c.contributionValue)  as nbContributions from projects p, contributions c,domaines d where p.projectId=? and c.relatedTo=? and p.projectDomaine=d.domaineId ";
     queryMediaProject = "select m.addedDate,m.mediaURL,m.addedBy from infoMedias m where m.relatedTo=? "
 
     try {
@@ -232,5 +232,10 @@ const getAllProjects = async (req, res) => {
 
 
 };
+const getProjectMedia = async (req, res) => {
+    res.json({
+        'message': 'File uploaded succesfully.'
+    });
+};
 
-module.exports = { addProject, getProjectDetails, getMyProjectDetails, getProjectsFromDomaine, getAllProjects };
+module.exports = { addProject, getProjectDetails, getMyProjectDetails, getProjectsFromDomaine, getAllProjects, getProjectMedia };

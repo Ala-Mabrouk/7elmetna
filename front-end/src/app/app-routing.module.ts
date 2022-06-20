@@ -8,18 +8,17 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ProjectDetailsComponent } from './project-details/project-details.component';
 
 const routes: Routes = [
-  { path: '',   component: HomePageComponent  }, 
+  { path: '', component: HomePageComponent },
   { path: 'allproject', component: AllProjectComponent },
-  { path: 'projectdetail', component: ProjectDetailsComponent },
+  { path: 'projectdetail/:Pid', component: ProjectDetailsComponent },
   { path: 'myproject', component: MyProjectComponent },
   { path: 'addprojectpage1', component: AddProjectComponent },
 
-
-  { path: '**', component: PageNotFoundComponent },  
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
