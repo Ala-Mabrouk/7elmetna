@@ -32,24 +32,32 @@
   <button type="button" class="btn btn-outline-dark me-3">Autres</button>
 
   <div class="row">
-    <div class="col-4">
+    <div class="col-4" *ngFor="let project of listAllProject">
       <div class="card mt-5" style="width: 18rem">
         <img
-          src="https://cdn.nawaat.org/wp-content/uploads/2015/07/femme-grace-rurale.jpg"
+          [src]="project.projectThumbNail"
           class="card-img-top p-3"
-          alt="..."
+          [alt]="project.projectFullName"
         />
+        <!-- <div>
+          <ngx-qrcode
+            [elementType]="elementType"
+            [errorCorrectionLevel]="correctionLevel"
+            [value]="value"
+            cssClass="bshadow"
+          ></ngx-qrcode>
+        </div> -->
         <div class="card-body">
-          <h5 class="card-title">{{ listAllProject[0].projectShortName }}</h5>
+          <h5 class="card-title">{{ project.projectShortName }}</h5>
           <p class="card-text">
-            {{ listAllProject[0].nbContributions }} Bailleurs de fond
+            {{ project.nbContributions }} Bailleurs de fond
           </p>
-          <p class="card-text">2 Jours 6 Heures 5 minutes restants</p>
+          <p class="card-text">{{ project.projectLefttime }} restants</p>
           <div class="progress">
             <div
               class="progress-bar bg-success"
               role="progressbar"
-              [style]="listAllProject[0].projectProgress"
+              [style]="project.projectProgress"
               aria-valuenow=" "
               aria-valuemin="0"
               aria-valuemax="100"

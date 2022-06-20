@@ -7,6 +7,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AllProjectComponent } from './all-project/all-project.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
     HomePageComponent,
     AllProjectComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxQRCodeModule],
   providers: [],
   bootstrap: [AppComponent],
 })
