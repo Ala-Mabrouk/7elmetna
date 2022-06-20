@@ -8,6 +8,11 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { AllProjectComponent } from './all-project/all-project.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
+import { AddProjectComponent } from './add-project/add-project.component';
+import { SloganComponent } from './slogan/slogan.component';
+import { MyProjectComponent } from './my-project/my-project.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +20,13 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     NavbarComponent,
     HomePageComponent,
     AllProjectComponent,
+    ProjectDetailsComponent,
+    AddProjectComponent,
+    SloganComponent,
+    MyProjectComponent,
+    PageNotFoundComponent,
   ],
+
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxQRCodeModule],
   providers: [],
   bootstrap: [AppComponent],

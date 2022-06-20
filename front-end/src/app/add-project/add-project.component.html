@@ -1,0 +1,92 @@
+<app-navbar></app-navbar>
+<app-slogan></app-slogan>
+<div class="container">
+  <form class="shadow p-3 mb-5 bg-body rounded">
+    <h5 class="card-title text-center">Ajouter un nouveau projet</h5>
+    <div class="row">
+      <div class="col-6">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label"
+            >Nom complet du projet</label
+          >
+          <input
+            type="text"
+            required
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Domaine</label>
+          <br />
+          <div class="btn-group">
+            <select id="cars" class="btn btn-light dropdown-toggle">
+              <option value="volvo">
+                ــــــــــchoisir votre domaine d'activité ـــــــــ
+              </option>
+              <option value="volvo">Santé</option>
+              <option value="saab">Entreprenariat</option>
+              <option value="opel">Environnement</option>
+              <option value="audi">Artisanat</option>
+              <option value="audi">Technologies</option>
+              <option value="audi">Autres</option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label" required
+            >Adresse</label
+          >
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+        </div>
+      </div>
+      
+      <div class="col-6">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label"
+            >Description
+          </label>
+          <div class="form-floating">
+            <textarea
+              class="form-control"
+              required
+              placeholder="Leave a comment here"
+              id="floatingTextarea2"
+              style="height: 100px"
+            ></textarea>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label"
+            >Montant sollicité en DT</label
+          >
+          <input
+            type="number"
+            required
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+        </div>
+       
+      </div>
+    </div>
+
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+      <label class="form-check-label" for="exampleCheck1"
+        >je declare sur l'honneur que tous ces informations sont corrects
+      </label>
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+  </form>
+</div>
