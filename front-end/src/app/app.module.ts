@@ -13,6 +13,7 @@ import { AddProjectComponent } from './add-project/add-project.component';
 import { SloganComponent } from './slogan/slogan.component';
 import { MyProjectComponent } from './my-project/my-project.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LogInSignUpComponent } from './log-in-sign-up/log-in-sign-up.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     SloganComponent,
     MyProjectComponent,
     PageNotFoundComponent,
+    LogInSignUpComponent,
   ],
 
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxQRCodeModule],

@@ -2,3 +2,14 @@
     font-size: 60px ; 
     color : #193863;
 }
+#demo {
+background-color:var( --primary-color);
+    }
+.textedinar {
+    font-size: 55px;
+    color: white;
+}
+.subtitle{
+    color: white;
+    font-size: 18px;
+}

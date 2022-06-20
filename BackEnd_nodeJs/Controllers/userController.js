@@ -66,7 +66,7 @@ const userLogin = (req, res) => {
                 return res.status(401).json("check your credentinals");
             } else if (resPass) {
                 const response = { email: resultQuery[0].userEmail };
-                const accessToken = jwt.sign(response, process.env.ACCESS_TOKEN, { expiresIn: '8h' });
+                const accessToken = jwt.sign(response, "eabd946ac3112a332fcc76ba5e04d5849d98e47607a06c5826740c9cf4da5b4b7d9400ecd73667c03979f636436dbbabcbe66bd9b04fee4292d03e599c64334e", { expiresIn: '8h' });
                 res.status(200).json({ token: accessToken });
             } else {
                 return res.status(500).json(err);
