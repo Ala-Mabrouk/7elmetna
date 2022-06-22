@@ -1,9 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/internal/Observable';
+import { __await } from 'tslib';
 import { Project } from '../Models/project';
 import { ProjectService } from '../Services/project.service';
+import { UploadFilesService } from '../Services/upload-files.service';
 @Component({
   selector: 'app-project-details',
   templateUrl: './project-details.component.html',
@@ -11,26 +14,25 @@ import { ProjectService } from '../Services/project.service';
 })
 export class ProjectDetailsComponent implements OnInit {
   projectValue: Project = new Project();
-
-  uploadedFiles: Array<File> = [];
-
-  @ViewChild('UploadFileInput', { static: false }) uploadFileInput: any;
-  fileUploadForm: any;
-  fileInputLabel: any;
-
+  selectedFiles?: FileList;
+  currentFile?: File;
+  // progress = 0;
+  // message = '';
+  fileInfos?: Observable<any>;
+  progressInfos: any[] = [];
+  message: string[] = [];
   constructor(
     private projectService: ProjectService,
     private route: ActivatedRoute,
-    private http: HttpClient,
-    private formBuilder: FormBuilder
+
+    private formBuilder: FormBuilder,
+    private uploadFileServices: UploadFilesService
   ) {}
 
   ngOnInit(): void {
     this.initData();
-    this.fileUploadForm = this.formBuilder.group({
-      uploadedImage: [''],
-    });
   }
+
   initData() {
     let idP = this.route.snapshot.params['Pid'];
     this.projectService.getProjectDetails(idP).subscribe((res: any) => {
@@ -39,52 +41,43 @@ export class ProjectDetailsComponent implements OnInit {
     });
   }
 
-  onFileSelect(event: any) {
-    const file = event.target.files[0];
-    this.fileInputLabel = file.name;
-    this.fileUploadForm.get('uploadedImage').setValue(file);
+  selectFiles(event: any): void {
+    this.message = [];
+    this.progressInfos = [];
+    this.selectedFiles = event.target.files;
   }
+  uploadFiles(): void {
+    this.message = [];
+    console.log();
 
-  onFormSubmit() {
-    if (!this.fileUploadForm.get('uploadedImage').value) {
-      alert('Please fill valid details!');
-      return false;
+    if (this.selectedFiles) {
+      for (let i = 0; i < this.selectedFiles.length; i++) {
+        this.upload(i, this.selectedFiles[i]);
+      }
     }
-    const formData = new FormData();
-    const extension = this.fileUploadForm
-      .get('uploadedImage')
-      .value.name.substring(
-        this.fileUploadForm.get('uploadedImage').value.name.lastIndexOf('.'),
-        this.fileUploadForm.get('uploadedImage').value.name.length
-      ); //chnaging file name to smthing identified :
-    // projectName_dateAdded.ext
-    const newName =
-      this.projectValue.projectFullName +
-      '_' +
-      new Date().toDateString() +
-      extension;
-    formData.append(
-      'uploadedImage',
-      this.fileUploadForm.get('uploadedImage').value,
-      newName
-    );
-    formData.append('agentId', '007');
-
-    return this.http
-      .post<any>('http://localhost:3033/files/upload', formData)
-      .subscribe(
-        (response) => {
-          console.log(response);
-          if (response.statusCode === 200) {
-            // Reset the file input
-            this.uploadFileInput.nativeElement.value = '';
-            this.fileInputLabel = undefined;
+  }
+  upload(idx: number, file: File): void {
+    this.progressInfos[idx] = { value: 0, fileName: file.name };
+    if (file) {
+      this.uploadFileServices
+        .uploadFiles(file, this.projectValue.projectFullName.toString())
+        .subscribe(
+          (event: any) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.progressInfos[idx].value = Math.round(
+                (100 * event.loaded) / event.total
+              );
+            } else if (event instanceof HttpResponse) {
+              const msg = 'Uploaded the file successfully: ' + file.name;
+              this.message.push(msg);
+            }
+          },
+          (err: any) => {
+            this.progressInfos[idx].value = 0;
+            const msg = 'Could not upload the file: ' + file.name;
+            this.message.push(msg);
           }
-        },
-        (er) => {
-          console.log(er);
-          alert(er.error.error);
-        }
-      );
+        );
+    }
   }
 }

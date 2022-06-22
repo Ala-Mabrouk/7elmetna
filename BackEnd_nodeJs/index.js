@@ -31,8 +31,8 @@ var storage = multer.diskStorage({
 var upload = multer({
     storage: storage,
     limits: {
-        // Setting Image Size Limit to 2MBs
-        fileSize: 2000000
+        // Setting Image Size Limit to 100MBs
+        fileSize: 100000000
     },
     // fileFilter(req, file, cb) {
     //     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
@@ -46,7 +46,7 @@ var upload = multer({
 
 app.post("/files/upload", upload.single("uploadedImage"), (req, res, next) => {
     const file = req.file
-    console.log(req);
+
     if (!file) {
         const error = new Error('Please upload a file')
         error.httpStatusCode = 400
