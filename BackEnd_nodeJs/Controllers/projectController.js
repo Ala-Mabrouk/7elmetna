@@ -2,6 +2,7 @@ const connectionDb = require("../connectionDb");
 const jwt = require("jsonwebtoken");
 const util = require('util');
 const query = util.promisify(connectionDb.query).bind(connectionDb);
+const Project = require("../Models/Project")
 var mailtemp
 
 
@@ -141,6 +142,7 @@ const addProject = (req, res) => {
     return res.status(200).json("Project is saved in data base");
 
 };
+
 const getProjectDetails = async (req, res) => {
     let projectFullData = ""
     const projectId = req.params.idProject
@@ -162,7 +164,7 @@ const getProjectDetails = async (req, res) => {
         //             resolve(resDataProjet[0]);
 
 
-        //         } else { 
+        //         } else {
         //             console.log(errDataProjet);
         //             reject(new Error(errDataProjet));
         //         }
@@ -210,6 +212,7 @@ const getProjectDetails = async (req, res) => {
     }
 
 };
+
 const getMyProjectDetails = (req, res) => {
 
 };
@@ -218,12 +221,20 @@ const getProjectsFromDomaine = (req, res) => {
     domaineName = req.params.domaineType
 
 };
+
 const getAllProjects = async (req, res) => {
-    let projectFullData
-    queryDataProject = "select p.*,d.domaineLabelle,sum(c.contributionValue)as sumContributions,count(c.contributionValue)  as nbContributions  from projects p, contributions c,domaines d where c.relatedTo=p.projectId and p.projectDomaine=d.domaineId ";
+    let projectFullData = []
+    queryDataProject = "select p.*,d.domaineLabelle,sum(c.contributionValue)as sumContributions,count(c.contributionValue)  as nbContributions  from projects p, contributions c,domaines d where c.relatedTo=p.projectId and p.projectDomaine=d.domaineId group by p.projectId ";
     try {
-        projectFullData = await
+
+        resultat = await
             query(queryDataProject)
+
+
+        for (let index = 0; index < resultat.length; index++) {
+            projectFullData.push(Project.fillProjectFromJSON(resultat[index]))
+        }
+        console.log(projectFullData);
         return res.status(200).json(projectFullData)
     } catch (errDataProjet) {
         console.log(errDataProjet);
@@ -232,10 +243,70 @@ const getAllProjects = async (req, res) => {
 
 
 };
+
 const getProjectMedia = async (req, res) => {
     res.json({
         'message': 'File uploaded succesfully.'
     });
 };
 
-module.exports = { addProject, getProjectDetails, getMyProjectDetails, getProjectsFromDomaine, getAllProjects, getProjectMedia };
+const getProjectsOfUser = async (req, res) => {
+    let projectFullData = []
+    const userId = req.params.idUser
+    queryDataProject = "select p.*,d.domaineLabelle,sum(c.contributionValue) as sumContributions, count(c.contributionValue)  as nbContributions from projects p, contributions c,domaines d where p.projectDomaine=d.domaineId and c.relatedTo=p.projectId group by c.relatedTo having p.projectOwner=? ;";
+    queryMediaProject = "select m.addedDate,m.mediaURL,m.addedBy from infoMedias m where m.relatedTo=? "
+    queryRealisationsProject = "select m.addedDate,m.mediaURL,m.addedBy from infoMedias m where m.relatedTo=? "
+
+
+    try {
+        try {
+            resultat = await
+                query(queryDataProject, [userId])
+            for (let index = 0; index < resultat.length; index++) {
+                projectFullData.push(Project.fillProjectFromJSON(resultat[index]))
+            }
+        } catch (errDataProjet) {
+            console.log(errDataProjet);
+        }
+        try {
+            for (let index = 0; index < projectFullData.length; index++) {
+                projectFullData[index].listMedia = await
+                    query(queryMediaProject, [projectFullData[index].projectId])
+
+            }
+        } catch (errMediaInfo) {
+            console.log(errMediaInfo);
+        }
+        try {
+            for (let index = 0; index < projectFullData.length; index++) {
+                projectFullData[index].listRealisations = await
+                    query(queryMediaProject, [projectFullData[index].projectId])
+
+            }
+        } catch (errMediaInfo) {
+            console.log(errMediaInfo);
+        }
+
+        console.log("the project data is :");
+        console.log(projectFullData);
+    }
+    catch (codeErr) {
+        console.log(codeErr);
+    }
+    if (projectFullData[0] != null) {
+        return res.status(200).json(projectFullData)
+    } else {
+        return res.status(500).json("smthing bad happend !")
+    }
+
+};
+
+module.exports = {
+    addProject,
+    getProjectDetails,
+    getMyProjectDetails,
+    getProjectsFromDomaine,
+    getAllProjects,
+    getProjectMedia,
+    getProjectsOfUser
+};

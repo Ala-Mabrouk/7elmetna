@@ -20,6 +20,25 @@ function authenticateToken(req, res, next) {
     }
 
 }
+function VerifValidToken(req) {
+    const tempToken = req.body.user_web_token
+    let resTest = false;
+    if (tempToken != null) {
+
+        jwt.verify(tempToken, process.env.ACCESS_TOKEN, (err, response) => {
+            if (!err) {
+                console.log("the result is" + response);
+                resTest = true
+                // return res.status(200).json("token is valid");
+
+            }
+        })
+        return resTest
+        //  return res.status(403).json(err); 
+    }
+    return resTest;
+
+}
 function checkRole(req, res, next) {
     console.log(res.locales.role);
     if (res.locales.role != "Admin") {
@@ -28,17 +47,14 @@ function checkRole(req, res, next) {
     next();
 }
 function getMailFromToken(req) {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
-
-    jwt.verify(token, process.env.ACCESS_TOKEN, (err, response) => {
+    let userMail
+    jwt.verify(req, process.env.ACCESS_TOKEN, (err, response) => {
         if (!err) {
             //     console.log(response);
             console.log(response.email);
-            mailtemp = response.email + "";
-        } else {
-            console.log(err);
+            userMail = response.email + "";
         }
     });
+    return userMail
 }
-module.exports = { authenticateToken: authenticateToken, check_role: checkRole };
+module.exports = { authenticateToken: authenticateToken, check_role: checkRole, validateToken: VerifValidToken, getMailFromToken: getMailFromToken };

@@ -19,20 +19,54 @@
     </div>
   </div>
 
-  <button type="button" class="btn btn-danger me-3">Tous</button>
-  <button type="button" class="btn btn-outline-dark me-3">Santé</button>
+  <button
+    type="button"
+    class="btn btn-danger me-3"
+    (click)="filterData('Tous')"
+  >
+    Tous
+  </button>
+  <button
+    type="button"
+    class="btn btn-outline-dark me-3"
+    (click)="filterData('Santé')"
+  >
+    Santé
+  </button>
 
-  <button type="button" class="btn btn-outline-dark me-3">
+  <button
+    type="button"
+    class="btn btn-outline-dark me-3"
+    (click)="filterData('Entreprenariat')"
+  >
     Entreprenariat
   </button>
 
-  <button type="button" class="btn btn-outline-dark me-3">Environnement</button>
-  <button type="button" class="btn btn-outline-dark me-3">Artisanat</button>
-  <button type="button" class="btn btn-outline-dark me-3">Technologies</button>
+  <button
+    type="button"
+    class="btn btn-outline-dark me-3"
+    (click)="filterData('Environnement')"
+  >
+    Environnement
+  </button>
+  <button
+    type="button"
+    class="btn btn-outline-dark me-3"
+    (click)="filterData('Artisanat')"
+  >
+    Artisanat
+  </button>
+  <button
+    type="button"
+    class="btn btn-outline-dark me-3"
+    (click)="filterData('Technologies')"
+  >
+    Technologies
+  </button>
   <button type="button" class="btn btn-outline-dark me-3">Autres</button>
 
   <div class="row">
-    <div class="col-4" *ngFor="let project of listAllProject">
+    <div class="col-4" *ngFor="let project of displayedList">
       <div class="card mt-5" style="width: 18rem">
         <img
           [src]="project.projectThumbNail"

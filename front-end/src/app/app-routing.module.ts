@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { AllProjectComponent } from './all-project/all-project.component';
+import { AuthGardGuard } from './Services/authenticationGuard/auth-gard.guard';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LogInSignUpComponent } from './log-in-sign-up/log-in-sign-up.component';
 import { MyProjectComponent } from './my-project/my-project.component';
@@ -12,10 +13,17 @@ const routes: Routes = [
   { path: '', component: HomePageComponent },
   { path: 'allproject', component: AllProjectComponent },
   { path: 'projectdetail/:Pid', component: ProjectDetailsComponent },
-  { path: 'myproject', component: MyProjectComponent },
-  { path: 'addprojectpage1', component: AddProjectComponent },
+  {
+    path: 'myproject',
+    component: MyProjectComponent,
+    canActivate: [AuthGardGuard],
+  },
+  {
+    path: 'addproject',
+    component: AddProjectComponent,
+    canActivate: [AuthGardGuard],
+  },
   { path: 'login', component: LogInSignUpComponent },
-
 
   { path: '**', component: PageNotFoundComponent },
 ];

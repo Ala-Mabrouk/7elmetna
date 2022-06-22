@@ -13,6 +13,7 @@ router.get('/myProject/:id', authentication.authenticateToken, projectControl.ge
 router.get('/:id', projectControl.getProjectDetails)
 router.get('/getProjectDetails/:idProject', projectControl.getProjectDetails)
 router.post('/getProjectMedia', multipartMiddleware, projectControl.getProjectMedia)
+router.get('/userProjects/:idUser', projectControl.getProjectsOfUser)
 
 
 module.exports = router

@@ -12,7 +12,11 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <img src="../../assets/logo.png" class="d-inline-block align-text-top ms-5" width="150px"/>
+      <img
+        src="../../assets/logo.png"
+        class="d-inline-block align-text-top ms-5"
+        width="150px"
+      />
 
       <div class="ms-auto"></div>
       <form class="d-flex">
@@ -42,6 +46,12 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">A propos</a>
+          </li>
+          <li class="nav-item" *ngIf="!isIn">
+            <a class="nav-link" [routerLink]="['/login']">se Connecter</a>
+          </li>
+          <li class="nav-item" *ngIf="isIn">
+            <a class="nav-link" (click)="disconnect()">se Deconecter</a>
           </li>
         </ul>
       </form>

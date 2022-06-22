@@ -14,6 +14,7 @@ import { SloganComponent } from './slogan/slogan.component';
 import { MyProjectComponent } from './my-project/my-project.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LogInSignUpComponent } from './log-in-sign-up/log-in-sign-up.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,11 +26,19 @@ import { LogInSignUpComponent } from './log-in-sign-up/log-in-sign-up.component'
     AddProjectComponent,
     SloganComponent,
     MyProjectComponent,
+
     PageNotFoundComponent,
     LogInSignUpComponent,
   ],
 
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxQRCodeModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    NgxQRCodeModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

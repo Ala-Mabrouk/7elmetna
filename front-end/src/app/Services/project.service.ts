@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Project } from '../Models/project';
 
 @Injectable({
   providedIn: 'root',
@@ -13,5 +14,11 @@ export class ProjectService {
   }
   getProjectDetails(pID: number) {
     return this.httpClient.get(this.url + 'getProjectDetails/' + pID);
+  }
+  addNewProject(p: Project, auth: String) {
+    return this.httpClient.post<any>(this.url + '/newProject', p);
+  }
+  getProjectOfLogedUser(idU: any) {
+    return this.httpClient.get(this.url + 'userProjects/' + idU);
   }
 }

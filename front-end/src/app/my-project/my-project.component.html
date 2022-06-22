@@ -2,47 +2,76 @@
 <app-slogan></app-slogan>
 <div class="container">
   <div class="d-grid gap-2 col-6 mx-auto">
-    <button class="btn btn-secondary" type="button"> <img src="../../assets/icons/idea.svg"> Déposer un projet</button>
+    <button
+      class="btn btn-secondary"
+      [disabled]="etat"
+      type="button"
+      [routerLink]="['/addproject']"
+      routerLinkActive="router-link-active"
+    >
+      <img src="../../assets/icons/idea.svg" /> Déposer un projet
+    </button>
   </div>
-
-  <div *ngIf="true">
-    <div class="alert alert-warning" role="alert">
-     vous n'avez pas encore deposer un projet
+  <div class="row">
+    <div *ngIf="listofProjects == null">
+      <div class="alert alert-warning" role="alert">
+        vous n'avez pas encore deposer un projet
+      </div>
     </div>
-  </div>
-
-  <div *ngIf="true" class="shadow p-1  mb-5 bg-body rounded">
-    <div class="row">
-        <div class="col-4"> 
-            <img src="https://cdn.nawaat.org/wp-content/uploads/2015/07/femme-grace-rurale.jpg" class="card-img-top p-3" alt="...">
-        </div>
-        <div class="col-8">
-            <h5 class="card-title">فخار زمان</h5>
-
-            <div class="ps-5">
-                <div class="list-inline">
-                  <img src="../../assets/icons/donate.svg" class="list-inline-item" />
-                  <p class="card-text list-inline-item">
-                    <b>59</b> Bailleurs de fond
-                  </p>
-                </div>
-                <div class="list-inline">
-                  <img src="../../assets/icons/timer.svg" class="list-inline-item" />
-                  <p class="card-text list-inline-item">
-                    <b>2</b> Jours <b>6</b> Heures <b>5 </b>minutes restants
-                  </p>
-                </div>
-                <div class="list-inline">
-                  <img src="../../assets/icons/money.svg" class="list-inline-item" />
-                  <p class="card-text list-inline-item">
-                    <b>Montant sollicité : </b> 3000 TND
-                  </p>
+    <div *ngIf="listofProjects != null">
+      <div class="col-4" *ngFor="let project of listofProjects">
+        <div class="card mt-5" style="width: 18rem">
+          <img
+            [src]="project.projectThumbNail"
+            class="card-img-top p-3"
+            [alt]="project.projectFullName"
+          />
+          <!-- <div>
+          <ngx-qrcode
+            [elementType]="elementType"
+            [errorCorrectionLevel]="correctionLevel"
+            [value]="value"
+            cssClass="bshadow"
+          ></ngx-qrcode>
+        </div> -->
+          <div class="card-body">
+            <h5 class="card-title">{{ project.projectShortName }}</h5>
+            <p class="card-text">
+              {{ project.nbContributions }} Bailleurs de fond
+            </p>
+            <p class="card-text">{{ project.projectLefttime }} restants</p>
+            <div class="progress">
+              <div
+                class="progress-bar bg-success"
+                role="progressbar"
+                [style]="project.projectProgress"
+                aria-valuenow=" "
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <div class="card mt-5" style="width: 18rem">
+                  <div class="d-grid gap-2 mt-2">
+                    <button class="btn btn-primary" type="button">
+                      Partager sur les reseaux sociaux
+                    </button>
+                    <button
+                      class="btn btn-info"
+                      type="button"
+                      [routerLink]="['/projectdetail/', project.projectId]"
+                      routerLinkActive="router-link-active"
+                    >
+                      Voir Details et Soutenir
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn btn-primary me-md-2" type="button" > Voir details</button>
-              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
   </div>
 </div>

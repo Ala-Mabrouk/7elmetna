@@ -2,6 +2,11 @@ const jwt = require("jsonwebtoken");
 const connction = require('../connectionDb')
 const cryptPass = require("bcrypt");
 
+const authServices = require("../Services/authentication")
+const util = require('util');
+const query = util.promisify(connction.query).bind(connction);
+
+
 
 function generateCryptedPass(plainPass) {
     const hash = cryptPass.hashSync(plainPass, 5);
@@ -61,15 +66,15 @@ const userLogin = (req, res) => {
 
     connction.query(query, [logedUser.email], (err, resultQuery) => {
         if (!err) {
-            const resPass = verifPass(logedUser.password, resultQuery[0].userPassword);
-            if (resultQuery.length <= 0 || !resPass) {
+
+            if (resultQuery.length <= 0) {
                 return res.status(401).json("check your credentinals");
-            } else if (resPass) {
+            } else if (verifPass(logedUser.password, resultQuery[0].userPassword)) {
                 const response = { email: resultQuery[0].userEmail };
-                const accessToken = jwt.sign(response, "eabd946ac3112a332fcc76ba5e04d5849d98e47607a06c5826740c9cf4da5b4b7d9400ecd73667c03979f636436dbbabcbe66bd9b04fee4292d03e599c64334e", { expiresIn: '8h' });
+                const accessToken = jwt.sign(response, process.env.ACCESS_TOKEN, { expiresIn: '8h' });
                 res.status(200).json({ token: accessToken });
             } else {
-                return res.status(500).json(err);
+                return res.status(401).json("check your credentinals");
             }
         } else {
             return res.status(500).json(err);
@@ -78,9 +83,28 @@ const userLogin = (req, res) => {
 
 }
 
-const userInfo = (req, res) => {
-    console.log("userInfo controller is called");
-    console.log(req);
+const userInfo = async (req, res) => {
+    const userToken = req.params.token
+    userEmail = authServices.getMailFromToken(userToken);
+
+    let queryUser = "select u.* from users u where u.userEmail=?";
+    resRech = await query(queryUser, [userEmail])
+
+    if (resRech != null)
+        return res.status(200).json(resRech);
+
+    return res.status(500).json("user not found");
+
+
+
+}
+const userToken = (req, res) => {
+    let tres = authServices.validateToken(req);
+    if (tres) {
+        return res.status(200).json("valid token");
+    } else {
+        return res.status(401).json("invalid token");
+    }
 
 
 }
@@ -88,5 +112,5 @@ const userInfo = (req, res) => {
 
 
 module.exports = {
-    userSignUp, userLogin, userInfo
+    userSignUp, userLogin, userInfo, userToken
 }

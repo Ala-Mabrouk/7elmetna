@@ -4,6 +4,7 @@ const router = express.Router();
 
 router.post("/signup", userControl.userSignUp)
 router.post('/login', userControl.userLogin)
-router.get('/:id', userControl.userInfo)
+router.get('/:token', userControl.userInfo)
+router.post('/verifToken', userControl.userToken)
 
 module.exports = router

@@ -1,24 +1,28 @@
 <app-navbar></app-navbar>
 <div class="container">
- 
-
   <div class="row align-items-center">
     <div class="col-8">
       <i class="fa-light fa-lightbulb-on"></i>
-      <p class="text-uppercase sabeer" >
+      <p class="text-uppercase sabeer">
         Grandir un projet, renforcer la comunitée
       </p>
-  
-      <button type="button" class=" ms-5 btn btn-secondary col-4  ">
-        <img src="../../assets/icons/idea.svg"/> Déposer votre projet
+
+      <button
+        type="button"
+        class="ms-5 btn btn-secondary col-4"
+        [routerLink]="['/myproject']"
+      >
+        <img src="../../assets/icons/idea.svg" /> Déposer votre projet
       </button>
 
-      <button type="button" class=" ms-2 btn btn-primary col-4 mx-aut">
-        <img src="../../assets/icons/hand.svg"/>
+      <button
+        type="button"
+        class="ms-2 btn btn-primary col-4 mx-aut"
+        [routerLink]="['/allproject']"
+      >
+        <img src="../../assets/icons/hand.svg" />
         Soutenir un projet
       </button>
-
-
     </div>
     <div class="col-3">
       <img src="../assets/cover-photo.png" width="300" />
@@ -26,16 +30,21 @@
   </div>
   <div class="col-1"></div>
 </div>
-<div id="demo" class="ps-5  pt-2 pb-1 mt-5">
+<div id="demo" class="ps-5 pt-2 pb-1 mt-5">
   <div class="row">
     <div class="col-4">
-      <img src="../../assets/e-Dinar Funding.png" class="img-fluid" alt="...">
+      <img src="../../assets/e-Dinar Funding.png" class="img-fluid" alt="..." />
     </div>
     <div class="col-7">
-      <h3 class="text-uppercase text-center textedinar">e-dINAR <b>funding</b></h3>
-      <p class="subtitle">E-dinnar Founding la première carte digitale dédiée pour le crow- founding proposée par la poste Tunisienne.</p>
+      <h3 class="text-uppercase text-center textedinar">
+        e-dINAR <b>funding</b>
+      </h3>
+      <p class="subtitle">
+        E-dinnar Founding la première carte digitale dédiée pour le crow-
+        founding proposée par la poste Tunisienne.
+      </p>
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-light">Voir plus   → </button>
+        <button type="button" class="btn btn-light">Voir plus →</button>
       </div>
     </div>
   </div>
