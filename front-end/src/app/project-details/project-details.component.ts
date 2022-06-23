@@ -13,11 +13,10 @@ import { UploadFilesService } from '../Services/upload-files.service';
   styleUrls: ['./project-details.component.css'],
 })
 export class ProjectDetailsComponent implements OnInit {
-  projectValue: Project = new Project();
+  projectValue: any;
   selectedFiles?: FileList;
   currentFile?: File;
-  // progress = 0;
-  // message = '';
+
   fileInfos?: Observable<any>;
   progressInfos: any[] = [];
   message: string[] = [];
@@ -36,8 +35,8 @@ export class ProjectDetailsComponent implements OnInit {
   initData() {
     let idP = this.route.snapshot.params['Pid'];
     this.projectService.getProjectDetails(idP).subscribe((res: any) => {
-      console.log(res[0]);
-      this.projectValue = Project.fillProjectFromJSON(res[0]);
+      console.log(res);
+      this.projectValue = res;
     });
   }
 
@@ -60,7 +59,7 @@ export class ProjectDetailsComponent implements OnInit {
     this.progressInfos[idx] = { value: 0, fileName: file.name };
     if (file) {
       this.uploadFileServices
-        .uploadFiles(file, this.projectValue.projectFullName.toString())
+        .uploadFiles(file, this.route.snapshot.params['Pid'])
         .subscribe(
           (event: any) => {
             if (event.type === HttpEventType.UploadProgress) {

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UploadFilesService {
   constructor(private http: HttpClient) {}
-  uploadFiles(file: File, pName: string): Observable<HttpEvent<any>> {
+  uploadFiles(file: File, pId: number): Observable<HttpEvent<any>> {
     const formData = new FormData();
     //chnaging file name to smthing identified :
     // projectName_dateAdded.ext
@@ -17,8 +17,9 @@ export class UploadFilesService {
     );
     const postFix = Math.random().toString(36).substring(2, 5);
     const newName =
-      pName + '_' + new Date().toDateString() + '_' + postFix + extension;
+      pId + '_' + new Date().toDateString() + '_' + postFix + extension;
     formData.append('uploadedImage', file, newName);
+
     const req = new HttpRequest(
       'POST',
       'http://localhost:3033/files/upload',

@@ -85,3 +85,27 @@ insert into users(userName,userLastName,userEmail,userPassword,userPhone,userRol
 insert into users(userName,userLastName,userEmail,userPassword,userPhone,userRoleID) values("sami","ben foulen","samibenfoulen@mail.com","123456","+21688552299" );
 
 insert into domaines(domaineLabelle,domaineDesc) values("tech","tech projects");
+insert into domaines(domaineLabelle,domaineDesc) values("Entreprenariat","Entreprenariat projects");
+insert into domaines(domaineLabelle,domaineDesc) values(" Santé "," Santé  projects");
+insert into domaines(domaineLabelle,domaineDesc) values(" Artisanat "," Artisanat  projects");
+  insert into projects(projectShortName,projectFullName,projectShortDescription,projectFullDescription,projectLocation,projectDomaine,
+ projectOwner,projectDemand,projectLimits)values("7elmatna","7elmetna by A,S,G","alot of words","alot of words","tunisia",2,1,5000,"2022-12-31");
+
+ insert into projects(projectShortName,projectFullName,projectShortDescription,projectFullDescription,projectLocation,projectDomaine,
+ projectOwner,projectDemand,projectLimits)values("fa5ar zman","fa5ar zman by samiya","alot of words","alot of words","chebba",4,1,2000,"2022-12-31");
+
+  insert into projects(projectShortName,projectFullName,projectShortDescription,projectFullDescription,projectLocation,projectDomaine,
+ projectOwner,projectDemand,projectLimits)values("Chachiet el bay","Chachiet el bay by 3am Ali","alot of words","alot of words","Mahdia",4,1,2500,"2022-09-29");
+
+ 
+
+insert into infomedias(addedDate,mediaURL,relatedTo,addedBy)values("2022-06-18","./Uploads/8_Thu Jun 23 2022_ggx.png",8,1);
+insert into infomedias(addedDate,mediaURL,relatedTo,addedBy)values("2022-06-18","./Uploads/8_Thu Jun 23 2022_n71.jpg",8,1);
+insert into infomedias(addedDate,mediaURL,relatedTo,addedBy)values("2022-06-18","./Uploads/8_Thu Jun 23 2022_yf5.jpg",8,1);
+
+insert into contributions(contributionDate,contributionValue,relatedTo) values("2022-06-30",150,8);
+insert into contributions(contributionDate,contributionValue,relatedTo) values("2022-08-30",10,8);
+insert into contributions(contributionDate,contributionValue,relatedTo) values("2022-06-10",150,9);
+insert into contributions(contributionDate,contributionValue,relatedTo) values("2022-11-30",10,9);
+insert into contributions(contributionDate,contributionValue,relatedTo) values("2022-10-18",150,10);
+insert into contributions(contributionDate,contributionValue,relatedTo) values("2022-09-02",10,10);

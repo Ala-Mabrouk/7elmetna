@@ -148,64 +148,39 @@ const getProjectDetails = async (req, res) => {
     const projectId = req.params.idProject
     queryDataProject = "select p.*,d.domaineLabelle,sum(c.contributionValue) as sumContributions, count(c.contributionValue)  as nbContributions from projects p, contributions c,domaines d where p.projectId=? and c.relatedTo=? and p.projectDomaine=d.domaineId ";
     queryMediaProject = "select m.addedDate,m.mediaURL,m.addedBy from infoMedias m where m.relatedTo=? "
+    queryRealisationsProject = "select m.addedDate,m.mediaURL,m.addedBy from infoMedias m where m.relatedTo=? "
 
     try {
         try {
-            projectFullData = await
+            resultat = await
                 query(queryDataProject, [projectId, projectId])
+
+            projectFullData = Project.fillProjectFromJSON(resultat[0])
+
         } catch (errDataProjet) {
             console.log(errDataProjet);
         }
-        // await new Promise(function (resolve, reject) {
-        //     connectionDb.query(queryDataProject, [projectId, projectId], (errDataProjet, resDataProjet) => {
-        //         if (!errDataProjet) {
-        //             // projectFullData = resDataProjet[0]
-        //             // console.log(projectFullData);
-        //             resolve(resDataProjet[0]);
 
-
-        //         } else {
-        //             console.log(errDataProjet);
-        //             reject(new Error(errDataProjet));
-        //         }
-        //     })
-        // }).then(function (results) {
-        //     projectFullData = results
-        // })
-        //     .catch(function (err) {
-        //         console.log("Promise rejection error: " + err);
-        //     })
-
-        // console.log("second: ")
-        // console.log(projectFullData)
-        // console.log("second: ")
-
-        // connectionDb.query(queryMediaProject, [projectId], (errMediaInfo, resMediaInfo) => {
-        //     if (!errMediaInfo) {
-        //         projectFullData.listMedia = resMediaInfo
-        //         console.log(projectFullData);
-
-        //     } else {
-        //         console.log(errMediaInfo);
-        //     }
-
-        // })
         try {
-            projectFullData[0].listMedia = await
+            projectFullData.listMedia = await
                 query(queryMediaProject, [projectId])
         } catch (errMediaInfo) {
             console.log(errMediaInfo);
         }
-        // console.log("theird: ") 
-        // console.log(projectFullData)
-        // console.log("theird: ")
+        try {
+            projectFullData.listRealisations = await
+                query(queryRealisationsProject, [projectId])
+        } catch (errDataProjet) {
+            console.log(errDataProjet);
+        }
+
         console.log("the project data is :");
         console.log(projectFullData);
     }
     catch (codeErr) {
         console.log(codeErr);
     }
-    if (projectFullData[0].projectId != null) {
+    if (projectFullData.projectId != null) {
         return res.status(200).json(projectFullData)
     } else {
         return res.status(500).json("smthing bad happend !")
@@ -310,3 +285,37 @@ module.exports = {
     getProjectMedia,
     getProjectsOfUser
 };
+        // await new Promise(function (resolve, reject) {
+        //     connectionDb.query(queryDataProject, [projectId, projectId], (errDataProjet, resDataProjet) => {
+        //         if (!errDataProjet) {
+        //             // projectFullData = resDataProjet[0]
+        //             // console.log(projectFullData);
+        //             resolve(resDataProjet[0]);
+
+
+        //         } else {
+        //             console.log(errDataProjet);
+        //             reject(new Error(errDataProjet));
+        //         }
+        //     })
+        // }).then(function (results) {
+        //     projectFullData = results
+        // })
+        //     .catch(function (err) {
+        //         console.log("Promise rejection error: " + err);
+        //     })
+
+        // console.log("second: ")
+        // console.log(projectFullData)
+        // console.log("second: ")
+
+        // connectionDb.query(queryMediaProject, [projectId], (errMediaInfo, resMediaInfo) => {
+        //     if (!errMediaInfo) {
+        //         projectFullData.listMedia = resMediaInfo
+        //         console.log(projectFullData);
+
+        //     } else {
+        //         console.log(errMediaInfo);
+        //     }
+
+        // })

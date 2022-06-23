@@ -54,6 +54,50 @@
         </div>
       </div>
     </div>
+    <br />
+    <div *ngIf="projectValue.listMedia">
+      <h1>Media</h1>
+      <div class="row" *ngFor="let media of projectValue.listMedia">
+        <div class="col-4">
+          <div class="mt-5">
+            <img
+              [src]="media.mediaURL"
+              class="card-img-top p-3"
+              [alt]="media.mediaURL"
+            />
+          </div>
+        </div>
+
+        <div class="col-7">
+          <h5 class="card-title">{{ media.addedDate }}</h5>
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div *ngIf="projectValue.listRealisations">
+      <h1>Realistaions</h1>
+      <div
+        class="row"
+        *ngFor="let realisation of projectValue.listRealisations"
+      >
+        <div class="col-4">
+          <div class="mt-5">
+            <img
+              [src]="realisation.mediaURL"
+              class="card-img-top p-3"
+              [alt]="realisation.mediaURL"
+            />
+          </div>
+        </div>
+
+        <div class="col-7">
+          <h5 class="card-title">{{ realisation.addedDate }}</h5>
+        </div>
+      </div>
+    </div>
+    <br />
+
     <div class="row">
       <div class="col-8">
         <label class="btn btn-default p-0">
