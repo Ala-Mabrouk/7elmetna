@@ -8,6 +8,8 @@ background-color:var( --primary-color);
 .textedinar {
     font-size: 55px;
     color: white;
+    font-weight: normal;
+
 }
 .subtitle{
     color: white;

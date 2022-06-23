@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddProjectPage2Component } from './add-project-page2/add-project-page2.component';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { AllProjectComponent } from './all-project/all-project.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -14,6 +15,8 @@ const routes: Routes = [
   { path: 'projectdetail/:Pid', component: ProjectDetailsComponent },
   { path: 'myproject', component: MyProjectComponent },
   { path: 'addprojectpage1', component: AddProjectComponent },
+  { path: 'addprojectpage2', component: AddProjectPage2Component },
+
   { path: 'login', component: LogInSignUpComponent },
 
 

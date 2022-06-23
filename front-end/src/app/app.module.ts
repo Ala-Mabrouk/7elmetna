@@ -14,7 +14,8 @@ import { SloganComponent } from './slogan/slogan.component';
 import { MyProjectComponent } from './my-project/my-project.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LogInSignUpComponent } from './log-in-sign-up/log-in-sign-up.component';
-
+import { AddProjectPage2Component } from './add-project-page2/add-project-page2.component';
+import { AngularFileUploaderModule } from "angular-file-uploader";
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,9 +28,11 @@ import { LogInSignUpComponent } from './log-in-sign-up/log-in-sign-up.component'
     MyProjectComponent,
     PageNotFoundComponent,
     LogInSignUpComponent,
+    AddProjectPage2Component,
   ],
 
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxQRCodeModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxQRCodeModule,
+    AngularFileUploaderModule,],
   providers: [],
   bootstrap: [AppComponent],
 })
