@@ -14,9 +14,10 @@ import { SloganComponent } from './slogan/slogan.component';
 import { MyProjectComponent } from './my-project/my-project.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LogInSignUpComponent } from './log-in-sign-up/log-in-sign-up.component';
+import { AddProjectPage2Component } from './add-project-page2/add-project-page2.component';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SafePipe } from './safe.pipe';
-import { SwiperModule } from 'swiper/angular';
+ import { SwiperModule } from 'swiper/angular';
 import { GalleryComponent } from './gallery/gallery.component';
 import { FooterComponent } from './footer/footer.component';
 
@@ -30,12 +31,11 @@ import { FooterComponent } from './footer/footer.component';
     AddProjectComponent,
     SloganComponent,
     MyProjectComponent,
-
     PageNotFoundComponent,
     LogInSignUpComponent,
-    SafePipe,
-    GalleryComponent,
+     GalleryComponent,
     FooterComponent,
+    AddProjectPage2Component
   ],
 
   imports: [

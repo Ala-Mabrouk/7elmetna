@@ -36,7 +36,7 @@
   <div class="d-grid gap-2 col-6 mx-auto">
     <button
       class="btn btn-secondary"
-      [disabled]="etat"
+      [disabled]="!etat"
       type="button"
       [routerLink]="['/addproject']"
       routerLinkActive="router-link-active"

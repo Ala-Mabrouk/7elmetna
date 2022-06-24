@@ -72,97 +72,50 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-8">
-          <label class="btn btn-default p-0">
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              (change)="selectFiles($event)"
-            />
-          </label>
-        </div>
-        <div class="col-4">
-          <button
-            class="btn btn-success btn-sm"
-            [disabled]="!selectedFiles"
-            (click)="uploadFiles()"
-          >
-            Upload
-          </button>
-        </div>
-      </div>
-      <div>
-        <img *ngFor="let preview of previews" [src]="preview" class="preview" />
-      </div>
-      <div
-        *ngIf="message.length"
-        class="alert alert-secondary my-3"
-        role="alert"
-      >
-        <ul *ngFor="let msg of message; let i = index">
-          <li>{{ msg }}</li>
-        </ul>
-      </div>
-      <div class="card mt-3">
-        <div class="card-header">List of Images</div>
-        <ul
-          class="list-group list-group-flush"
-          *ngFor="let image of imageInfos | async"
-        >
-          <li class="list-group-item">
-            <p>
-              <a href="{{ image.url }}">{{ image.name }}</a>
-            </p>
-            <img src="{{ image.url }}" alt="{{ image.name }}" height="80px" />
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div
-      class="row"
-      *ngIf="
-        projectValue.projectEarned != projectValue.projectDemand &&
-        projectValue.projectLefttime != 'Temps ecoulé'
-      "
-    >
-      <div class="col-6">
-        <form>
-          <div class="d-grid gap-2 col-6 mx-auto">
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label"
-                >Saisir le montant
-              </label>
-              <br />
-              <input
-                type="email"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
-            </div>
 
-            <button
-              class="btn btn-primary"
-              type="submit"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-            >
-              Generer Qr Code et et Soutenir
+      <div
+        class="row"
+        *ngIf="
+          projectValue.projectEarned != projectValue.projectDemand &&
+          projectValue.projectLefttime != 'Temps ecoulé'
+        "
+      >
+        <div class="col-6">
+          <form>
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"
+                  >Saisir le montant
+                </label>
+                <br />
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+
+              <button
+                class="btn btn-primary"
+                type="submit"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                Generer Qr Code et et Soutenir
+              </button>
+            </div>
+          </form>
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <br />
+            <p class="text-center">ــــــــــ ou bien ــــــــــ</p>
+            <button class="btn btn-primary" type="button">
+              Remplir le formuaire
             </button>
           </div>
-        </form>
-        <div class="d-grid gap-2 col-6 mx-auto">
-          <br />
-          <p class="text-center">ــــــــــ ou bien ــــــــــ</p>
-          <button class="btn btn-primary" type="button">
-            Remplir le formuaire
-          </button>
-        </div>
 
-        <div class="d-grid gap-2 col-6 mx-auto">
-          <!-- <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
+          <div class="d-grid gap-2 col-6 mx-auto">
+            <!-- <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
             <div class="row">
               <div class="col-sm-12">
                 <div>
@@ -193,125 +146,126 @@
               </div>
             </div>
           </form> -->
+          </div>
+        </div>
+        <div class="col-6 mt-5">
+          <iframe
+            src="https://www.youtube.com/embed/tgbNymZ7vqY"
+            height="200px"
+            width="500px"
+          >
+          </iframe>
+        </div>
+        <div *ngIf="projectValue.listMedia">
+          <h5 class="card-title mt-4">Voir la gallery des photos</h5>
+          <div *ngFor="let media of projectValue.listMedia">
+            <small class="text-muted text-end">{{ media.addedDate }}</small>
+
+            <div class="col-4">
+              <div class="mt-5">
+                <img
+                  [src]="'http://localhost:3033/' + media.mediaURL"
+                  class="card-img-top p-3"
+                  [alt]="media.mediaURL"
+                />
+              </div>
+            </div>
+
+            <div class="col-7"></div>
+          </div>
         </div>
       </div>
-      <div class="col-6 mt-5">
-        <iframe
-          src="https://www.youtube.com/embed/tgbNymZ7vqY"
-          height="200px"
-          width="500px"
-        >
-        </iframe>
-      </div>
-      <div *ngIf="projectValue.listMedia">
-        <h5 class="card-title mt-4">Voir la gallery des photos</h5>
-        <div *ngFor="let media of projectValue.listMedia">
-          <small class="text-muted text-end">{{ media.addedDate }}</small>
-
-          <div class="col-4">
-            <div class="mt-5">
+    </div>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+      <div *ngIf="projectValue.listRealisations">
+        <h4 class="card-title">Suivie de Projet</h4>
+        <div class="card mb-3">
+          <div
+            class="row"
+            *ngFor="let realisation of projectValue.listRealisations"
+          >
+            <div class="col-5">
               <img
-                [src]="'http://localhost:3033/' + media.mediaURL"
-                class="card-img-top p-3"
-                [alt]="media.mediaURL"
+                [src]="'http://localhost:3033/' + realisation.rmediaURL"
+                class="card-img-top"
+                alt=""
               />
             </div>
-          </div>
 
-          <div class="col-7"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="shadow p-3 mb-5 bg-body rounded">
-    <div *ngIf="projectValue.listRealisations">
-      <h4 class="card-title">Suivie de Projet</h4>
-      <div class="card mb-3">
-        <div
-          class="row"
-          *ngFor="let realisation of projectValue.listRealisations"
-        >
-          <div class="col-5">
-            <img
-              [src]="'http://localhost:3033/' + realisation.rmediaURL"
-              class="card-img-top"
-              alt=""
-            />
-          </div>
-
-          <!-- <img [src]="realisation.mediaURL" class="card-img-top"               [alt]="realisation.mediaURL"
+            <!-- <img [src]="realisation.mediaURL" class="card-img-top"               [alt]="realisation.mediaURL"
         > -->
-          <div class="card-body col-7">
-            <h5 class="card-title">{{ realisation.addedDate }}</h5>
-            <small class="text-muted text-end">{{
-              realisation.addedDate
-            }}</small>
+            <div class="card-body col-7">
+              <h5 class="card-title">{{ realisation.addedDate }}</h5>
+              <small class="text-muted text-end">{{
+                realisation.addedDate
+              }}</small>
 
-            <p class="card-text">
-              {{ realisation.addedDate }}
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </p>
-            <p class="card-text"></p>
+              <p class="card-text">
+                {{ realisation.addedDate }}
+                This is a wider card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit
+                longer.
+              </p>
+              <p class="card-text"></p>
+            </div>
           </div>
         </div>
       </div>
+      <br />
     </div>
-    <br />
   </div>
-</div>
-<!-- Button trigger modal -->
+  <!-- Button trigger modal -->
 
-<!-- Modal -->
-<div
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">
-          Scanner le QR code avec l’application D17
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <div class="alert alert-primary" role="alert">
-          Télécharger gratuitement, sur votre Smartphone ou tablette,
-          l’application D17 à partir de Google Play ou Apple Store.
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Scanner le QR code avec l’application D17
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
-        <p class="text-center">
-          - Scanner le QR code, pour effectuer le paiement de la transaction.
-        </p>
-        <div class="row">
-          <div class="col-3"></div>
-          <div class="col-5 ms-4">
-            <ngx-qrcode
-              [elementType]="elementType"
-              [errorCorrectionLevel]="correctionLevel"
-              [value]="value"
-              cssClass="bshadow"
-            ></ngx-qrcode>
+        <div class="modal-body">
+          <div class="alert alert-primary" role="alert">
+            Télécharger gratuitement, sur votre Smartphone ou tablette,
+            l’application D17 à partir de Google Play ou Apple Store.
+          </div>
+          <p class="text-center">
+            - Scanner le QR code, pour effectuer le paiement de la transaction.
+          </p>
+          <div class="row">
+            <div class="col-3"></div>
+            <div class="col-5 ms-4">
+              <ngx-qrcode
+                [elementType]="elementType"
+                [errorCorrectionLevel]="correctionLevel"
+                [value]="value"
+                cssClass="bshadow"
+              ></ngx-qrcode>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="alert alert-primary m-2" role="alert">
-        Pour chaque transaction réalisée, la somme est débitée instantanément de
-        votre porte-monnaie électronique.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Valider</button>
+        <div class="alert alert-primary m-2" role="alert">
+          Pour chaque transaction réalisée, la somme est débitée instantanément
+          de votre porte-monnaie électronique.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Valider</button>
+        </div>
       </div>
     </div>
   </div>
+  <app-gallery></app-gallery>
 </div>
-<app-gallery></app-gallery>

@@ -15,6 +15,11 @@ const routes: Routes = [
   { path: 'allproject', component: AllProjectComponent },
   { path: 'projectdetail/:Pid', component: ProjectDetailsComponent },
   {
+    path: 'addproject2',
+    component: AddProjectPage2Component,
+    canActivate: [AuthGardGuard],
+  },
+  {
     path: 'myproject',
     component: MyProjectComponent,
     canActivate: [AuthGardGuard],
@@ -24,11 +29,7 @@ const routes: Routes = [
     component: AddProjectComponent,
     canActivate: [AuthGardGuard],
   },
-  {
-    path: 'addproject2',
-    component: AddProjectPage2Component,
-    canActivate: [AuthGardGuard],
-  },
+
   { path: 'login', component: LogInSignUpComponent },
 
   { path: '**', component: PageNotFoundComponent },
