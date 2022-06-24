@@ -62,6 +62,8 @@ function fillProjectFromJSON(elmentJson) {
         tempP.projectThumbNail = "../../assets/cover-photo.png";
     }
 
+    tempP.projectLefttime =
+        days + ' Jours ' + hours + ' h ' + minutes + ' m';
     return tempP;
 }
 module.exports = { fillProjectFromJSON, fillProject }
