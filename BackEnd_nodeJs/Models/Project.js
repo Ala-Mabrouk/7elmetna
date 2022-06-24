@@ -64,7 +64,7 @@ function fillProjectFromJSON(elmentJson) {
     }
 
     tempP.projectLefttime =
-        days + ' Jours ' + hours + ' h ' + minutes + ' m';
+        days + ' Jours ' + hours + ' h  ' + minutes + ' m';
     return tempP;
 }
 module.exports = { fillProjectFromJSON, fillProject }

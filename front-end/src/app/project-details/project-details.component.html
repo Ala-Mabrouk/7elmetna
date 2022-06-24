@@ -143,7 +143,12 @@
               />
             </div>
 
-            <button class="btn btn-primary" type="submit">
+            <button
+              class="btn btn-primary"
+              type="submit"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
               Generer Qr Code et et Soutenir
             </button>
           </div>
@@ -256,5 +261,57 @@
     <br />
   </div>
 </div>
+<!-- Button trigger modal -->
 
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Scanner le QR code avec l’application D17
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-primary" role="alert">
+          Télécharger gratuitement, sur votre Smartphone ou tablette,
+          l’application D17 à partir de Google Play ou Apple Store.
+        </div>
+        <p class="text-center">
+          - Scanner le QR code, pour effectuer le paiement de la transaction.
+        </p>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-5 ms-4">
+            <ngx-qrcode
+              [elementType]="elementType"
+              [errorCorrectionLevel]="correctionLevel"
+              [value]="value"
+              cssClass="bshadow"
+            ></ngx-qrcode>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-primary m-2" role="alert">
+        Pour chaque transaction réalisée, la somme est débitée instantanément de
+        votre porte-monnaie électronique.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Valider</button>
+      </div>
+    </div>
+  </div>
+</div>
 <app-gallery></app-gallery>

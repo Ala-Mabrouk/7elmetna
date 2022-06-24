@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class CardFundingService {
-  private url = 'http://localhost:3033/user/addUserCard';
+  private url = 'http://localhost:3033/user/addCard';
   constructor(private httpClient: HttpClient) {}
 
   addCardFunding(cardInfo: any) {
