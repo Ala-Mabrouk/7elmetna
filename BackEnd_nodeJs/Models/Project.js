@@ -1,4 +1,4 @@
-
+const { resolve } = require('path');
 function fillProject(pId, pShortName, pFullName, pShortDesc, pFullDesc, pLocation, pDemand, pEndDate, pDomaine, pOwner, pThumbNail, pMedia, pNbContributions, ptEarned) {
     let tempP = new Project();
     tempP.projectId = pId;
@@ -19,6 +19,7 @@ function fillProject(pId, pShortName, pFullName, pShortDesc, pFullDesc, pLocatio
     return tempP;
 }
 function fillProjectFromJSON(elmentJson) {
+    console.log(elmentJson);
     var tempP = {}
     const second = 1000;
     const minute = second * 60;
@@ -41,14 +42,29 @@ function fillProjectFromJSON(elmentJson) {
     //
     tempP.projectDomaine = elmentJson.domaineLabelle;
     //  tempP.projectOwner = elmentJson.;
+
     //  tempP.projectThumbNail = elmentJson.;
     // tempP.projectMedia = elmentJson.;
     tempP.nbContributions = elmentJson.nbContributions;
     tempP.projectEarned = elmentJson.sumContributions;
     tempP.projectProgress =
         'width: ' + (tempP.projectEarned / tempP.projectDemand) * 100 + '%';
+    if (days == 0 && hours == 0 && minute == 0) {
+        tempP.projectLefttime = "Temps ecoulé"
+    } else {
+        tempP.projectLefttime =
+            days + ' jours ' + hours + ' heures ' + minutes + ' minutes';
+    }
+    if (elmentJson.listMedia) {
+        tempP.listMedia = elmentJson.listMedia
+
+        tempP.projectThumbNail = " http://localhost:3033/" + elmentJson.listMedia[0].mediaURL;
+    } else {
+        tempP.projectThumbNail = "../../assets/cover-photo.png";
+    }
+
     tempP.projectLefttime =
-     days + ' Jours ' + hours + ' h ' + minutes + ' m';
+        days + ' Jours ' + hours + ' h  ' + minutes + ' m';
     return tempP;
 }
 module.exports = { fillProjectFromJSON, fillProject }

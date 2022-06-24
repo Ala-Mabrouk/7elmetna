@@ -10,10 +10,12 @@ const projectRoute = require("./Routes/projectRoutes.js")
 
 const app = express()
 
+app.use(express.static('files'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+app.use(express.static('./'))
 app.use(cors())
 app.use('/user', userRoute)
 app.use('/project', projectRoute)

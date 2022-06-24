@@ -109,8 +109,24 @@ const userToken = (req, res) => {
 
 }
 
+const addUserCard = async (req, res) => {
+    let data = req.body;
+    console.log(data);
+    let queryAddCard = "UPDATE  users SET `userNumCardFunding` = ? WHERE userId  = ?; "
+    const a = await query(queryAddCard, [data.numCard, data.idUser]);
+    try {
+        const a = await query(queryAddCard, [data.numCard, data.idUser]);
+        console.log("card is added ");
+        return res.status(200).json(projectFullData)
+    } catch (errDataProjet) {
+        console.log(errDataProjet);
+        return res.status(500).json(errDataProjet)
+    }
+
+}
+
 
 
 module.exports = {
-    userSignUp, userLogin, userInfo, userToken
+    userSignUp, userLogin, userInfo, userToken, addUserCard
 }

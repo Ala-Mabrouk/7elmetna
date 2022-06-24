@@ -7,6 +7,11 @@ import { __await } from 'tslib';
 import { Project } from '../Models/project';
 import { ProjectService } from '../Services/project.service';
 import { UploadFilesService } from '../Services/upload-files.service';
+import {
+  NgxQrcodeElementTypes,
+  NgxQrcodeErrorCorrectionLevels,
+} from '@techiediaries/ngx-qrcode';
+
 @Component({
   selector: 'app-project-details',
   templateUrl: './project-details.component.html',
@@ -20,6 +25,11 @@ export class ProjectDetailsComponent implements OnInit {
   fileInfos?: Observable<any>;
   progressInfos: any[] = [];
   message: string[] = [];
+  previews: string[] = [];
+  imageInfos?: Observable<any>;
+  elementType = NgxQrcodeElementTypes.URL;
+  correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
+  value = 'https://www.techiediaries.com/';
   constructor(
     private projectService: ProjectService,
     private route: ActivatedRoute,
@@ -44,6 +54,18 @@ export class ProjectDetailsComponent implements OnInit {
     this.message = [];
     this.progressInfos = [];
     this.selectedFiles = event.target.files;
+    this.previews = [];
+    if (this.selectedFiles && this.selectedFiles[0]) {
+      const numberOfFiles = this.selectedFiles.length;
+      for (let i = 0; i < numberOfFiles; i++) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          console.log(e.target.result);
+          this.previews.push(e.target.result);
+        };
+        reader.readAsDataURL(this.selectedFiles[i]);
+      }
+    }
   }
   uploadFiles(): void {
     this.message = [];

@@ -148,7 +148,7 @@ const getProjectDetails = async (req, res) => {
     const projectId = req.params.idProject
     queryDataProject = "select p.*,d.domaineLabelle,sum(c.contributionValue) as sumContributions, count(c.contributionValue)  as nbContributions from projects p, contributions c,domaines d where p.projectId=? and c.relatedTo=? and p.projectDomaine=d.domaineId ";
     queryMediaProject = "select m.addedDate,m.mediaURL,m.addedBy from infoMedias m where m.relatedTo=? "
-    queryRealisationsProject = "select m.addedDate,m.mediaURL,m.addedBy from infoMedias m where m.relatedTo=? "
+    queryRealisationsProject = "select r.* from realizations r where r.relatedTo=? "
 
     try {
         try {
@@ -188,24 +188,24 @@ const getProjectDetails = async (req, res) => {
 
 };
 
-const getMyProjectDetails = (req, res) => {
-
-};
-
-const getProjectsFromDomaine = (req, res) => {
-    domaineName = req.params.domaineType
-
-};
-
 const getAllProjects = async (req, res) => {
     let projectFullData = []
-    queryDataProject = "select p.*,d.domaineLabelle,sum(c.contributionValue)as sumContributions,count(c.contributionValue)  as nbContributions  from projects p, contributions c,domaines d where c.relatedTo=p.projectId and p.projectDomaine=d.domaineId group by p.projectId ";
+    queryDataProject = "select p.*,d.domaineLabelle,sum(c.contributionValue)as sumContributions,count(c.contributionValue)  as nbContributions, m.*  from projects p, contributions c,domaines d,infomedias m where c.relatedTo=p.projectId and p.projectDomaine=d.domaineId group by p.projectId;";
+    queryMediaProject = "select m.addedDate,m.mediaURL,m.addedBy from infoMedias m where m.relatedTo=? "
+
     try {
 
         resultat = await
             query(queryDataProject)
+        for (let index = 0; index < resultat.length; index++) {
+            const listM = await
+                query(queryMediaProject, [resultat[index].projectId])
+            if (listM[0]) {
+                resultat[index].listMedia = listM
+            }
 
 
+        }
         for (let index = 0; index < resultat.length; index++) {
             projectFullData.push(Project.fillProjectFromJSON(resultat[index]))
         }
@@ -279,8 +279,6 @@ const getProjectsOfUser = async (req, res) => {
 module.exports = {
     addProject,
     getProjectDetails,
-    getMyProjectDetails,
-    getProjectsFromDomaine,
     getAllProjects,
     getProjectMedia,
     getProjectsOfUser

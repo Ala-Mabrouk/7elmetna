@@ -57,53 +57,76 @@
     <br />
 
     <div class="row">
-      <div class="col-8">
-        <label class="btn btn-default p-0">
-          <input type="file" multiple (change)="selectFiles($event)" />
-        </label>
-      </div>
-      <div class="col-4">
-        <button
-          class="btn btn-success btn-sm"
-          [disabled]="!selectedFiles"
-          (click)="uploadFiles()"
-        >
-          Upload
-        </button>
-      </div>
-    </div>
-    <div *ngFor="let progressInfo of progressInfos" class="mb-2">
-      <span>{{ progressInfo.fileName }}</span>
-      <div class="progress">
-        <div
-          class="progress-bar progress-bar-info progress-bar-striped"
-          role="progressbar"
-          attr.aria-valuenow="{{ progressInfo.value }}"
-          aria-valuemin="0"
-          aria-valuemax="100"
-          [ngStyle]="{ width: progressInfo.value + '%' }"
-        >
-          {{ progressInfo.value }}%
+      <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+        <span>{{ progressInfo.fileName }}</span>
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-info progress-bar-striped"
+            role="progressbar"
+            attr.aria-valuenow="{{ progressInfo.value }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [ngStyle]="{ width: progressInfo.value + '%' }"
+          >
+            {{ progressInfo.value }}%
+          </div>
         </div>
       </div>
-    </div>
-    <div *ngIf="message.length" class="alert alert-secondary my-3" role="alert">
-      <ul *ngFor="let msg of message; let i = index">
-        <li>{{ msg }}</li>
-      </ul>
-    </div>
-    <div class="card mt-3">
-      <div class="card-header">List of Files</div>
-      <ul
-        class="list-group list-group-flush"
-        *ngFor="let file of fileInfos | async"
+      <div class="row">
+        <div class="col-8">
+          <label class="btn btn-default p-0">
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              (change)="selectFiles($event)"
+            />
+          </label>
+        </div>
+        <div class="col-4">
+          <button
+            class="btn btn-success btn-sm"
+            [disabled]="!selectedFiles"
+            (click)="uploadFiles()"
+          >
+            Upload
+          </button>
+        </div>
+      </div>
+      <div>
+        <img *ngFor="let preview of previews" [src]="preview" class="preview" />
+      </div>
+      <div
+        *ngIf="message.length"
+        class="alert alert-secondary my-3"
+        role="alert"
       >
-        <li class="list-group-item">
-          <a href="{{ file.url }}">{{ file.name }}</a>
-        </li>
-      </ul>
+        <ul *ngFor="let msg of message; let i = index">
+          <li>{{ msg }}</li>
+        </ul>
+      </div>
+      <div class="card mt-3">
+        <div class="card-header">List of Images</div>
+        <ul
+          class="list-group list-group-flush"
+          *ngFor="let image of imageInfos | async"
+        >
+          <li class="list-group-item">
+            <p>
+              <a href="{{ image.url }}">{{ image.name }}</a>
+            </p>
+            <img src="{{ image.url }}" alt="{{ image.name }}" height="80px" />
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="row">
+    <div
+      class="row"
+      *ngIf="
+        projectValue.projectEarned != projectValue.projectDemand &&
+        projectValue.projectLefttime != 'Temps ecoulé'
+      "
+    >
       <div class="col-6">
         <form>
           <div class="d-grid gap-2 col-6 mx-auto">
@@ -120,7 +143,12 @@
               />
             </div>
 
-            <button class="btn btn-primary" type="submit">
+            <button
+              class="btn btn-primary"
+              type="submit"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
               Generer Qr Code et et Soutenir
             </button>
           </div>
@@ -183,7 +211,7 @@
           <div class="col-4">
             <div class="mt-5">
               <img
-                [src]="media.mediaURL"
+                [src]="'http://localhost:3033/' + media.mediaURL"
                 class="card-img-top p-3"
                 [alt]="media.mediaURL"
               />
@@ -205,7 +233,7 @@
         >
           <div class="col-5">
             <img
-              src="https://cdn.sotor.com/thumbs/fit630x300/21073/1579367134/%D8%B7%D8%B1%D9%82_%D8%AA%D8%B9%D9%84%D9%85_%D8%B4%D8%BA%D9%84_%D8%B5%D9%88%D9%81.jpg"
+              [src]="'http://localhost:3033/' + realisation.rmediaURL"
               class="card-img-top"
               alt=""
             />
@@ -214,16 +242,18 @@
           <!-- <img [src]="realisation.mediaURL" class="card-img-top"               [alt]="realisation.mediaURL"
         > -->
           <div class="card-body col-7">
-            <h5 class="card-title">Card title</h5>
-            <small class="text-muted text-end">{{ realisation.addedDate }}</small>
+            <h5 class="card-title">{{ realisation.addedDate }}</h5>
+            <small class="text-muted text-end">{{
+              realisation.addedDate
+            }}</small>
 
             <p class="card-text">
+              {{ realisation.addedDate }}
               This is a wider card with supporting text below as a natural
               lead-in to additional content. This content is a little bit
               longer.
             </p>
-            <p class="card-text">
-            </p>
+            <p class="card-text"></p>
           </div>
         </div>
       </div>
@@ -231,5 +261,57 @@
     <br />
   </div>
 </div>
+<!-- Button trigger modal -->
 
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Scanner le QR code avec l’application D17
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-primary" role="alert">
+          Télécharger gratuitement, sur votre Smartphone ou tablette,
+          l’application D17 à partir de Google Play ou Apple Store.
+        </div>
+        <p class="text-center">
+          - Scanner le QR code, pour effectuer le paiement de la transaction.
+        </p>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-5 ms-4">
+            <ngx-qrcode
+              [elementType]="elementType"
+              [errorCorrectionLevel]="correctionLevel"
+              [value]="value"
+              cssClass="bshadow"
+            ></ngx-qrcode>
+          </div>
+        </div>
+      </div>
+      <div class="alert alert-primary m-2" role="alert">
+        Pour chaque transaction réalisée, la somme est débitée instantanément de
+        votre porte-monnaie électronique.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Valider</button>
+      </div>
+    </div>
+  </div>
+</div>
 <app-gallery></app-gallery>

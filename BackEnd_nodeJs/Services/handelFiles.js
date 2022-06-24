@@ -20,7 +20,7 @@ var upload = multer({
         fileSize: 100000000
     },
     // fileFilter(req, file, cb) {
-    //     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+    //     if (!file.originalname.match(//.(jpg|jpeg|png)$/)) {
     //         //Error 
     //         cb(new Error('Please upload JPG and PNG images only!'))
     //     }
@@ -28,4 +28,6 @@ var upload = multer({
     //     cb(undefined, true)
     // }
 })
+
+
 module.exports = { uploadFun: upload.single("uploadedImage") }

@@ -21,7 +21,7 @@ const uploadSingleFileMedia = async (req, res, next) => {
     );
     try {
         const currentDate = new Date().toLocaleDateString()
-        const filePath = "../Uploads/" + file.filename
+        const filePath = "/Uploads/" + file.filename
         const r = await
             query(querySaveMedia, [currentDate, filePath, pId, 1])
     } catch (errMediaInfo) {
@@ -40,4 +40,5 @@ const uploadSingleFileMedia = async (req, res, next) => {
             })
         }
 }
+
 module.exports = { uploadSingleFileMedia }

@@ -73,7 +73,7 @@
     <div class="col-4" *ngFor="let project of displayedList">
       <div class="card mt-5" style="width: 18rem">
         <img
-          [src]="project.projectThumbNail"
+          [src]="project.projectThumbNail | safe"
           class="card-img-top p-3"
           [alt]="project.projectFullName"
         />

@@ -6,5 +6,7 @@ router.post("/signup", userControl.userSignUp)
 router.post('/login', userControl.userLogin)
 router.get('/:token', userControl.userInfo)
 router.post('/verifToken', userControl.userToken)
+router.post('/addCard', userControl.addUserCard)
+
 
 module.exports = router

@@ -1,0 +1,13 @@
+.preview {
+  max-width: 200px;
+}
+.bshadow {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(5px 5px 5px #222222);
+    opacity: .5;
+  
+  }
+  
