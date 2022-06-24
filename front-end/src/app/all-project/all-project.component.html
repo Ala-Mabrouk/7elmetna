@@ -69,7 +69,7 @@
     <div class="col-4" *ngFor="let project of displayedList">
       <div class="card mt-5" style="width: 18rem">
         <img
-          [src]="project.projectThumbNail"
+          [src]="project.projectThumbNail | safe"
           class="card-img-top p-3"
           [alt]="project.projectFullName"
         />
@@ -104,14 +104,36 @@
                   <button class="btn btn-primary" type="button">
                     Partager sur les reseaux sociaux
                   </button>
-                  <button
-                    class="btn btn-info"
-                    type="button"
-                    [routerLink]="['/projectdetail/', project.projectId]"
-                    routerLinkActive="router-link-active"
+                  <div
+                    *ngIf="
+                      project.projectEarned != project.projectDemand &&
+                      project.projectLefttime != 'Temps ecoulé'
+                    "
                   >
-                    Voir Details et Soutenir
-                  </button>
+                    <button
+                      class="btn btn-info"
+                      type="button"
+                      [routerLink]="['/projectdetail/', project.projectId]"
+                      routerLinkActive="router-link-active"
+                    >
+                      Voir Details et Soutenir
+                    </button>
+                  </div>
+                  <div
+                    *ngIf="
+                      project.projectEarned == project.projectDemand ||
+                      project.projectLefttime == 'Temps ecoulé'
+                    "
+                  >
+                    <button
+                      class="btn btn-info"
+                      type="button"
+                      [routerLink]="['/projectdetail/', project.projectId]"
+                      routerLinkActive="router-link-active"
+                    >
+                      Voir Details et Realisation
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
