@@ -206,7 +206,7 @@
           <div class="col-4">
             <div class="mt-5">
               <img
-                [src]="media.mediaURL"
+                [src]="'http://localhost:3033/' + media.mediaURL"
                 class="card-img-top p-3"
                 [alt]="media.mediaURL"
               />
@@ -228,7 +228,7 @@
         >
           <div class="col-5">
             <img
-              src="https://cdn.sotor.com/thumbs/fit630x300/21073/1579367134/%D8%B7%D8%B1%D9%82_%D8%AA%D8%B9%D9%84%D9%85_%D8%B4%D8%BA%D9%84_%D8%B5%D9%88%D9%81.jpg"
+              [src]="'http://localhost:3033/' + realisation.rmediaURL"
               class="card-img-top"
               alt=""
             />
@@ -237,16 +237,18 @@
           <!-- <img [src]="realisation.mediaURL" class="card-img-top"               [alt]="realisation.mediaURL"
         > -->
           <div class="card-body col-7">
-            <h5 class="card-title">Card title</h5>
-            <small class="text-muted text-end">{{ realisation.addedDate }}</small>
+            <h5 class="card-title">{{ realisation.addedDate }}</h5>
+            <small class="text-muted text-end">{{
+              realisation.addedDate
+            }}</small>
 
             <p class="card-text">
+              {{ realisation.addedDate }}
               This is a wider card with supporting text below as a natural
               lead-in to additional content. This content is a little bit
               longer.
             </p>
-            <p class="card-text">
-            </p>
+            <p class="card-text"></p>
           </div>
         </div>
       </div>

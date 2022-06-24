@@ -57,7 +57,8 @@ function fillProjectFromJSON(elmentJson) {
     }
     if (elmentJson.listMedia) {
         tempP.listMedia = elmentJson.listMedia
-        tempP.projectThumbNail = resolve(elmentJson.listMedia[0].mediaURL);
+
+        tempP.projectThumbNail = " http://localhost:3033/" + elmentJson.listMedia[0].mediaURL;
     } else {
         tempP.projectThumbNail = "../../assets/cover-photo.png";
     }
