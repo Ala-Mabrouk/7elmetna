@@ -15,6 +15,9 @@ import { MyProjectComponent } from './my-project/my-project.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LogInSignUpComponent } from './log-in-sign-up/log-in-sign-up.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SwiperModule } from 'swiper/angular';
+import { GalleryComponent } from './gallery/gallery.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
     PageNotFoundComponent,
     LogInSignUpComponent,
+    GalleryComponent,
+    FooterComponent,
   ],
 
   imports: [
@@ -38,6 +43,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     NgxQRCodeModule,
+    SwiperModule
   ],
   providers: [],
   bootstrap: [AppComponent],

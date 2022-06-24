@@ -55,48 +55,6 @@
       </div>
     </div>
     <br />
-    <div *ngIf="projectValue.listMedia">
-      <h1>Media</h1>
-      <div class="row" *ngFor="let media of projectValue.listMedia">
-        <div class="col-4">
-          <div class="mt-5">
-            <img
-              [src]="media.mediaURL"
-              class="card-img-top p-3"
-              [alt]="media.mediaURL"
-            />
-          </div>
-        </div>
-
-        <div class="col-7">
-          <h5 class="card-title">{{ media.addedDate }}</h5>
-        </div>
-      </div>
-    </div>
-    <br />
-    <br />
-    <div *ngIf="projectValue.listRealisations">
-      <h1>Realistaions</h1>
-      <div
-        class="row"
-        *ngFor="let realisation of projectValue.listRealisations"
-      >
-        <div class="col-4">
-          <div class="mt-5">
-            <img
-              [src]="realisation.mediaURL"
-              class="card-img-top p-3"
-              [alt]="realisation.mediaURL"
-            />
-          </div>
-        </div>
-
-        <div class="col-7">
-          <h5 class="card-title">{{ realisation.addedDate }}</h5>
-        </div>
-      </div>
-    </div>
-    <br />
 
     <div class="row">
       <div class="col-8">
@@ -174,10 +132,8 @@
             Remplir le formuaire
           </button>
         </div>
-        <div class="d-grid gap-2 col-6 mx-auto">
-          <br />
-          <p class="text-center">ــــــــــ ou bien ــــــــــ</p>
 
+        <div class="d-grid gap-2 col-6 mx-auto">
           <!-- <form [formGroup]="fileUploadForm" (ngSubmit)="onFormSubmit()">
             <div class="row">
               <div class="col-sm-12">
@@ -219,6 +175,61 @@
         >
         </iframe>
       </div>
+      <div *ngIf="projectValue.listMedia">
+        <h5 class="card-title mt-4">Voir la gallery des photos</h5>
+        <div *ngFor="let media of projectValue.listMedia">
+          <small class="text-muted text-end">{{ media.addedDate }}</small>
+
+          <div class="col-4">
+            <div class="mt-5">
+              <img
+                [src]="media.mediaURL"
+                class="card-img-top p-3"
+                [alt]="media.mediaURL"
+              />
+            </div>
+          </div>
+
+          <div class="col-7"></div>
+        </div>
+      </div>
     </div>
   </div>
+  <div class="shadow p-3 mb-5 bg-body rounded">
+    <div *ngIf="projectValue.listRealisations">
+      <h4 class="card-title">Suivie de Projet</h4>
+      <div class="card mb-3">
+        <div
+          class="row"
+          *ngFor="let realisation of projectValue.listRealisations"
+        >
+          <div class="col-5">
+            <img
+              src="https://cdn.sotor.com/thumbs/fit630x300/21073/1579367134/%D8%B7%D8%B1%D9%82_%D8%AA%D8%B9%D9%84%D9%85_%D8%B4%D8%BA%D9%84_%D8%B5%D9%88%D9%81.jpg"
+              class="card-img-top"
+              alt=""
+            />
+          </div>
+
+          <!-- <img [src]="realisation.mediaURL" class="card-img-top"               [alt]="realisation.mediaURL"
+        > -->
+          <div class="card-body col-7">
+            <h5 class="card-title">Card title</h5>
+            <small class="text-muted text-end">{{ realisation.addedDate }}</small>
+
+            <p class="card-text">
+              This is a wider card with supporting text below as a natural
+              lead-in to additional content. This content is a little bit
+              longer.
+            </p>
+            <p class="card-text">
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+  </div>
 </div>
+
+<app-gallery></app-gallery>

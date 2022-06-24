@@ -38,6 +38,14 @@
               >Projets</a
             >
           </li>
+          <li class="nav-item" *ngIf="isIn">
+            <a
+              class="nav-link"
+              [routerLink]="['/myproject']"
+              routerLinkActive="router-link-active"
+              >Mes projets</a
+            >
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Aider</a>
           </li>
@@ -48,10 +56,11 @@
             <a class="nav-link" href="#">A propos</a>
           </li>
           <li class="nav-item" *ngIf="!isIn">
-            <a class="nav-link" [routerLink]="['/login']">se Connecter</a>
+            <a class="nav-link" [routerLink]="['/login']">
+              <button type="button" class="btn btn-primary btn-sm">se Connecter</button></a>
           </li>
           <li class="nav-item" *ngIf="isIn">
-            <a class="nav-link" (click)="disconnect()">se Deconecter</a>
+            <a class="nav-link" (click)="disconnect()"><button type="button" class="btn btn-primary btn-sm">se Deconnecter</button></a>
           </li>
         </ul>
       </form>

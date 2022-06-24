@@ -14,3 +14,31 @@ textarea {
   width: 250px;
   opacity: 0.5;
 }
+
+#formGroupExampleInput{
+  border-radius: 56px;
+  border-color:   var( --primary-color);
+
+}
+.card {
+  background-color: #f0f0f0;
+  border-radius: 15px;
+}
+.border{
+  border-radius: 56px;
+}
+.btn-success
+{
+  background-color: #193863;
+  border:#193863;
+  border-radius: 20px;
+}
+
+.bg-successs{
+  color : var( --secondary-color);
+  background-color:  var( --secondary-color);
+
+}
+.card-title{
+  color:  #193863;
+}

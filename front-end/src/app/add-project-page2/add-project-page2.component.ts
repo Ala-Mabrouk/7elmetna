@@ -11,28 +11,7 @@ export class AddProjectPage2Component implements OnInit {
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
-  afuConfig = {
-    multiple: false,
-    formatsAllowed: ".jpg,.png",
-    maxSize: "1",
 
-    theme: "dragNDrop",
-    hideProgressBar: true,
-    hideResetBtn: true,
-    hideSelectBtn: true,
-    fileNameIndex: true,
-    autoUpload: false,
-    replaceTexts: {
-      selectFileBtn: 'Select Files',
-      resetBtn: 'Reset',
-      uploadBtn: 'Upload',
-      dragNDropBox: 'Drag N Drop',
-      attachPinBtn: 'Attach Files...',
-      afterUploadMsg_success: 'Successfully Uploaded !',
-      afterUploadMsg_error: 'Upload Failed !',
-      sizeLimit: 'Size Limit'
-    }
-};
 };
 
 

@@ -88,7 +88,7 @@ export class Project {
       'width: ' + (tempP.projectEarned / tempP.projectDemand) * 100 + '%';
 
     tempP.projectLefttime =
-      days + ' jours ' + hours + ' heures ' + minutes + ' minutes';
+      days + ' Jours ' + hours + ' H ' + minutes + ' M';
 
     return tempP;
   }
