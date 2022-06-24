@@ -7,6 +7,8 @@ import { __await } from 'tslib';
 import { Project } from '../Models/project';
 import { ProjectService } from '../Services/project.service';
 import { UploadFilesService } from '../Services/upload-files.service';
+import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
+
 @Component({
   selector: 'app-project-details',
   templateUrl: './project-details.component.html',
@@ -20,6 +22,9 @@ export class ProjectDetailsComponent implements OnInit {
   fileInfos?: Observable<any>;
   progressInfos: any[] = [];
   message: string[] = [];
+   elementType = NgxQrcodeElementTypes.URL;
+  correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
+  value = 'https://www.techiediaries.com/';
   constructor(
     private projectService: ProjectService,
     private route: ActivatedRoute,

@@ -48,7 +48,7 @@ function fillProjectFromJSON(elmentJson) {
     tempP.projectProgress =
         'width: ' + (tempP.projectEarned / tempP.projectDemand) * 100 + '%';
     tempP.projectLefttime =
-     days + ' Jours ' + hours + ' h ' + minutes + ' m';
+     days + ' Jours ' + hours + ' h  ' + minutes + ' m';
     return tempP;
 }
 module.exports = { fillProjectFromJSON, fillProject }
