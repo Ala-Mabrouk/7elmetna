@@ -3,12 +3,11 @@
 
 <div class="container">
   <div class="d-flex justify-content-center mt-3">
-<div class="col-4">
+    <div class="col-4">
       <div class="mb-3">
         <input
-
           type="text"
-          class="form-control "
+          class="form-control"
           id="formGroupExampleInput"
           placeholder="   chercher un projet"
         />
@@ -16,64 +15,67 @@
     </div>
     <div class="col-3">
       <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-primary " type="button"> <img src="../../assets/icons/chercher.svg"> Chercher</button>
+        <button class="btn btn-primary" type="button">
+          <img src="../../assets/icons/chercher.svg" /> Chercher
+        </button>
       </div>
-    </div></div>
+    </div>
+  </div>
   <div class="d-flex justify-content-center mt-3">
+    <button
+      type="button"
+      class="border btn ms-2 me-2 btn-secondary me-3"
+      (click)="filterData('Tous')"
+    >
+      Tous
+    </button>
+    <button
+      type="button"
+      class="btn border ms-2 me-2 btn-outline-dark me-3"
+      (click)="filterData('Santé')"
+    >
+      Santé
+    </button>
 
-  <button
-    type="button"
-    class=" border btn  ms-2 me-2 btn-secondary me-3"
-    (click)="filterData('Tous')"
-  >
-    Tous
-  </button>
-  <button
-    type="button"
-    class="btn border  ms-2 me-2 btn-outline-dark me-3"
-    (click)="filterData('Santé')"
-  >
-    Santé
-  </button>
+    <button
+      type="button"
+      class="border btn ms-2 me-2 btn-outline-dark me-3"
+      (click)="filterData('Entreprenariat')"
+    >
+      Entreprenariat
+    </button>
 
-  <button
-    type="button"
-    class="border btn  ms-2 me-2 btn-outline-dark me-3"
-    (click)="filterData('Entreprenariat')"
-  >
-    Entreprenariat
-  </button>
-
-  <button
-    type="button"
-    class="border btn   ms-2 me-2 btn-outline-dark me-3"
-    (click)="filterData('Environnement')"
-  >
-    Environnement
-  </button>
-  <button
-    type="button"
-    class="border btn  ms-2 me-2 btn-outline-dark me-3"
-    (click)="filterData('Artisanat')"
-  >
-    Artisanat
-  </button>
-  <button
-    type="button"
-    class="border btn  ms-2 me-2 btn-outline-dark me-3"
-    (click)="filterData('Technologies')"
-  >
-    Technologies
-  </button>
-  <button type="button" class=" border ms-2 me-2 btn btn-outline-dark me-3">Autres</button>
-
-</div>
+    <button
+      type="button"
+      class="border btn ms-2 me-2 btn-outline-dark me-3"
+      (click)="filterData('Environnement')"
+    >
+      Environnement
+    </button>
+    <button
+      type="button"
+      class="border btn ms-2 me-2 btn-outline-dark me-3"
+      (click)="filterData('Artisanat')"
+    >
+      Artisanat
+    </button>
+    <button
+      type="button"
+      class="border btn ms-2 me-2 btn-outline-dark me-3"
+      (click)="filterData('Technologies')"
+    >
+      Technologies
+    </button>
+    <button type="button" class="border ms-2 me-2 btn btn-outline-dark me-3">
+      Autres
+    </button>
+  </div>
 
   <div class="row">
     <div class="col-4" *ngFor="let project of displayedList">
       <div class="card mt-5" style="width: 18rem">
         <img
-          [src]="project.projectThumbNail "
+          [src]="project.projectThumbNail"
           class="card-img-top p-3"
           [alt]="project.projectFullName"
         />
@@ -87,12 +89,12 @@
         </div> -->
         <div class="card-body">
           <h5 class="card-title">{{ project.projectShortName }}</h5>
-          <p class="card-text">
+          <p class="card-text"></p>
 
           <div class="list-inline">
             <img src="../../assets/icons/donate.svg" class="list-inline-item" />
             <p class="card-text list-inline-item">
-            <b>  {{ project.nbContributions }} </b> Bailleurs de fond
+              <b> {{ project.nbContributions }} </b> Bailleurs de fond
             </p>
           </div>
 
@@ -115,40 +117,45 @@
           </div>
           <!-- <div class="row">
             <div class="col-4"> -->
-              <!-- <div class="card mt-5" style="width: 18rem"> -->
-                <div class="d-grid gap-2 mt-2">
-                  <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Partager sur les reseaux sociaux
-                  </button>
-               
-                  <button  *ngIf="
-                  project.projectEarned != project.projectDemand &&
-                  project.projectLefttime != 'Temps ecoulé'
-                "
-                    class="btn btn-primary"
-                    type="button"
-                    [routerLink]="['/projectdetail/', project.projectId]"
-                    routerLinkActive="router-link-active"
-                  >
-                    Voir Details et Soutenir
-                  </button>
-              
-               
-                  <button   *ngIf="
-                  project.projectEarned == project.projectDemand ||
-                  project.projectLefttime == 'Temps ecoulé'
-                "
-                    class="btn btn-info"
-                    type="button"
-                    [routerLink]="['/projectdetail/', project.projectId]"
-                    routerLinkActive="router-link-active"
-                  >
-                    Voir Details et Realisation
-                  </button>
-                
-                </div>
-              <!-- </div> -->
-            <!-- </div>
+          <!-- <div class="card mt-5" style="width: 18rem"> -->
+          <div class="d-grid gap-2 mt-2">
+            <button
+              class="btn btn-success"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              Partager sur les reseaux sociaux
+            </button>
+
+            <button
+              *ngIf="
+                project.projectEarned != project.projectDemand &&
+                project.projectLefttime != 'Temps ecoulé'
+              "
+              class="btn btn-primary"
+              type="button"
+              [routerLink]="['/projectdetail/', project.projectId]"
+              routerLinkActive="router-link-active"
+            >
+              Voir Details et Soutenir
+            </button>
+
+            <button
+              *ngIf="
+                project.projectEarned == project.projectDemand ||
+                project.projectLefttime == 'Temps ecoulé'
+              "
+              class="btn btn-info"
+              type="button"
+              [routerLink]="['/projectdetail/', project.projectId]"
+              routerLinkActive="router-link-active"
+            >
+              Voir Details et Realisation
+            </button>
+          </div>
+          <!-- </div> -->
+          <!-- </div>
           </div> -->
         </div>
       </div>
@@ -156,107 +163,42 @@
   </div>
 </div>
 
-
-
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="exampleModalLabel"> Partager sur les reseaux sociaux</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
-        <div id="buttons">
-          <div class="facebook button">
-            <i class="icon">
-              <i class="fa fa-facebook">
-            </i>
-          </i>
-          <div class="slide">
-            <p>
-              facebook
-            </p>
+        <div class="row">
+          <div class="col-3">
+            <img src="../../assets/logos/124021.png" alt="" width="80px" />
           </div>
-          <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Freference%2Fplugins%2Flike&send=false&layout=button_count&width=80&show_faces=false&font&colorscheme=light&action=like&height=20&appId=568581339861351" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:20px;" allowTransparency="true">
-          </iframe>
+          <div class="col-3">
+            <img src="../../assets/logos/174857.png" alt="" width="80px" />
           </div>
-          
-          <div class="twitter button">
-            <i class="icon">
-              <i class="fa fa-twitter">
-            </i>
-          </i>
-          <div class="slide">
-            <p>
-              twitter
-            </p>
+          <div class="col-3">
+            <img src="../../assets/logos/fb.png" alt="" width="80px" />
           </div>
-          <a href="https://twitter.com/share" class="twitter-share-button" data-via="mariuCSS">
-            Tweet
-          </a>
-          <script>
-            !function(d,s,id){
-              var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-              if(!d.getElementById(id)){
-                js=d.createElement(s);
-                js.id=id;
-                js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-          </script>
-          </div>
-          
-          <div class="google button">
-            <i class="icon">
-              <i class="fa fa-google-plus">
-            </i>
-          </i>
-          <div class="slide">
-            <p>
-              google+
-            </p>
-          </div>
-          <!-- Place this tag where you want the +1 button to render. -->
-          <div class="g-plusone" data-size="medium">
-          </div>
-          
-          <!-- Place this tag after the last +1 button tag. -->
-          <script type="text/javascript">
-            (function() {
-              var po = document.createElement('script');
-              po.type = 'text/javascript';
-              po.async = true;
-              po.src = 'https://apis.google.com/js/plusone.js';
-              var s = document.getElementsByTagName('script')[0];
-              s.parentNode.insertBefore(po, s);
-            }
-            )();
-          </script>
-          </div>
-          
-          
-          <div class="linkedin button">
-            <i class="icon">
-              <i class="fa fa-linkedin">
-            </i>
-          </i>
-          <div class="slide">
-            <p>
-              linkedin
-            </p>
-          </div>
-          <script type="IN/Share" data-counter="right">
-          </script>
-          <script src="//platform.linkedin.com/in.js" type="text/javascript">
-            lang: en_US
-          </script>
+          <div class="col-3">
+            <img src="../../assets/logos/insta.jfif" alt="" width="80px" />
           </div>
         </div>
-        
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+
     </div>
   </div>
 </div>

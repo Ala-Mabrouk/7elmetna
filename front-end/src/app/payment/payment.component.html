@@ -1,0 +1,94 @@
+<app-slogan></app-slogan>
+<div class="container">
+  <form
+    class="shadow p-3 mb-5 bg-body rounded mt-3"
+    style="margin-left: 200px; margin-right: 200px"
+  >
+    <h5 class="card-title text-center">Paiement</h5>
+    <div class="row mb-3">
+      <div class="col-2">
+        <img src="../../assets/logos/mastercard.png" alt="" width="90px" />
+      </div>
+      <div class="col-2">
+        <img src="../../assets/logos/visa.png" alt="" width="90px" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Montant :</label>
+        <input
+          type="text"
+          required
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label" required
+          >Nom sur la carte</label
+        >
+        <input
+          type="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+        />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label for="exampleInputEmail1" class="form-label"
+          >code de securité:</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          placeholder=""
+          aria-label="First name"
+        />
+      </div>
+      <div class="col">
+        <label for="exampleInputEmail1" class="form-label" required
+          >Date d'expirartion :</label
+        >
+        <input
+          type="month"
+          class="form-control"
+          placeholder=""
+          aria-label="Last name"
+        />
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label"
+        >Code postal:</label
+      >
+      <input
+        type="text"
+        required
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+      />
+    </div>
+    <div class="mb-3">
+      <input
+        type="text"
+        required
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+      />
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button
+        class="btn btn-primary me-md-2 ps-5 pe-5"
+        type="button"
+        [routerLink]="['/addproject2']"
+      >
+        Investir
+      </button>
+    </div>
+  </form>
+</div>

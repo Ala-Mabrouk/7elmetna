@@ -7,6 +7,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { LogInSignUpComponent } from './log-in-sign-up/log-in-sign-up.component';
 import { MyProjectComponent } from './my-project/my-project.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PaymentComponent } from './payment/payment.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { AuthGardGuard } from './Services/authenticationGuard/auth-gard.guard';
 
@@ -29,7 +30,11 @@ const routes: Routes = [
     component: AddProjectComponent,
     canActivate: [AuthGardGuard],
   },
-
+  {
+    path: 'payment',
+    component: PaymentComponent,
+    canActivate: [AuthGardGuard],
+  },
   { path: 'login', component: LogInSignUpComponent },
 
   { path: '**', component: PageNotFoundComponent },

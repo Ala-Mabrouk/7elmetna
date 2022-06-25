@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
  import { SwiperModule } from 'swiper/angular';
 import { GalleryComponent } from './gallery/gallery.component';
 import { FooterComponent } from './footer/footer.component';
+import { PaymentComponent } from './payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { FooterComponent } from './footer/footer.component';
     LogInSignUpComponent,
      GalleryComponent,
     FooterComponent,
-    AddProjectPage2Component
+    AddProjectPage2Component,
+    PaymentComponent
   ],
 
   imports: [
