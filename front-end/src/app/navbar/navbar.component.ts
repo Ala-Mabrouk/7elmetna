@@ -17,6 +17,6 @@ export class NavbarComponent implements OnInit {
   }
   disconnect() {
     localStorage.clear();
-    this.route.navigate(['']);
+    this.route.navigate(['/']);
   }
 }

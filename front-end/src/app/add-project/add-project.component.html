@@ -1,7 +1,6 @@
-<app-navbar></app-navbar>
 <app-slogan></app-slogan>
 <div class="container">
-  <form class="shadow p-3 mb-5 bg-body rounded">
+  <form class="shadow p-3 mb-5 bg-body rounded" [formGroup]="projectForm1">
     <h5 class="card-title text-center">Ajouter un nouveau projet</h5>
     <div class="row">
       <div class="col-6">
@@ -10,6 +9,7 @@
             >Nom complet du projet</label
           >
           <input
+            formControlName="FullName"
             type="text"
             required
             class="form-control"
@@ -22,16 +22,20 @@
           <label for="exampleInputEmail1" class="form-label">Domaine</label>
           <br />
           <div class="btn-group">
-            <select id="cars" class="btn btn-light dropdown-toggle">
-              <option value="volvo">
+            <select
+              (change)="selectChangeHandler($event)"
+              id="cars"
+              class="btn btn-light dropdown-toggle"
+            >
+              <option value="">
                 ــــــــــchoisir votre domaine d'activité ـــــــــ
               </option>
-              <option value="volvo">Santé</option>
-              <option value="saab">Entreprenariat</option>
-              <option value="opel">Environnement</option>
-              <option value="audi">Artisanat</option>
-              <option value="audi">Technologies</option>
-              <option value="audi">Autres</option>
+              <option value="Santé">Santé</option>
+              <option value="Entreprenariat">Entreprenariat</option>
+              <option value="Environnement">Environnement</option>
+              <option value="Artisanat">Artisanat</option>
+              <option value="Technologies">Technologies</option>
+              <option value="">Autres</option>
             </select>
           </div>
         </div>
@@ -40,6 +44,7 @@
             >Adresse</label
           >
           <input
+            formControlName="LocalProject"
             type="email"
             class="form-control"
             id="exampleInputEmail1"
@@ -55,6 +60,7 @@
           </label>
           <div class="form-floating">
             <textarea
+              formControlName="description"
               class="form-control"
               required
               placeholder="Leave a comment here"
@@ -68,7 +74,19 @@
             >Montant sollicité en DT</label
           >
           <input
+            formControlName="Montant"
             type="number"
+            required
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">date limite</label>
+          <input
+            formControlName="projectLimits"
+            type="date"
             required
             class="form-control"
             id="exampleInputEmail1"
@@ -77,7 +95,6 @@
         </div>
       </div>
     </div>
-
     <div class="mb-3 form-check">
       <input type="checkbox" class="form-check-input" id="exampleCheck1" />
       <label class="form-check-label" for="exampleCheck1"
@@ -85,7 +102,11 @@
       </label>
     </div>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <button class="btn btn-primary me-md-2 ps-5 pe-5" type="button" [routerLink]="['/addproject2']">
+      <button
+        class="btn btn-primary me-md-2 ps-5 pe-5"
+        type="button"
+        (click)="moveNext()"
+      >
         suivant
       </button>
     </div>

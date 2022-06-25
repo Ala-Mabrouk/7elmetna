@@ -1,0 +1,65 @@
+<app-slogan></app-slogan>
+<div class="container">
+  <form [formGroup]="addCardPform">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">CIN :</label>
+      <input
+        type="text"
+        class="form-control"
+        id="exampleInputEmail1"
+        formControlName="CIN"
+        aria-describedby="emailHelp"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label"
+        >Numero de la carte :</label
+      >
+      <input
+        type="email"
+        class="form-control"
+        id="exampleInputEmail1"
+        formControlName="cardNb"
+        aria-describedby="emailHelp"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label"
+        >Code de 8 chiffres :</label
+      >
+      <input
+        type="password"
+        class="form-control"
+        id="exampleInputEmail1"
+        formControlName="Code8"
+        aria-describedby="emailHelp"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label"
+        >Date d'expiration :</label
+      >
+      <input
+        type="month"
+        class="form-control"
+        id="exampleInputEmail1"
+        formControlName="DateExp"
+        aria-describedby="emailHelp"
+      />
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-bs-dismiss="modal"
+        [routerLink]="['']"
+        routerLinkActive="router-link-active"
+      >
+        Annuler
+      </button>
+      <button type="submit" (click)="saveCardData()" class="btn btn-primary">
+        submit
+      </button>
+    </div>
+  </form>
+</div>

@@ -8,12 +8,13 @@ const authentication = require("../Services/authentication")
 
 
 router.get('/allProjects', projectControl.getAllProjects)
-router.post('/newProject', authentication.authenticateToken, projectControl.addProject)
+router.post('/newProject', projectControl.addProject)
 //router.get('/myProject/:id', authentication.authenticateToken, projectControl.getMyProjectDetails)
 router.get('/:id', projectControl.getProjectDetails)
 router.get('/getProjectDetails/:idProject', projectControl.getProjectDetails)
 router.post('/getProjectMedia', multipartMiddleware, projectControl.getProjectMedia)
 router.get('/userProjects/:idUser', projectControl.getProjectsOfUser)
+router.get('/projectName/:nomProjet', projectControl.getprojectByName)
 
 
 module.exports = router

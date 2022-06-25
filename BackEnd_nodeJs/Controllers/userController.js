@@ -117,16 +117,26 @@ const addUserCard = async (req, res) => {
     try {
         const a = await query(queryAddCard, [data.numCard, data.idUser]);
         console.log("card is added ");
-        return res.status(200).json(projectFullData)
+        return res.status(200).json("card is added")
     } catch (errDataProjet) {
         console.log(errDataProjet);
         return res.status(500).json(errDataProjet)
     }
 
 }
+const userInfoById = async (req, res) => {
 
+    let queryUser = "select u.* from users u where u.userId=?";
+    resRech = await query(queryUser, [req.params.idUser])
+
+    if (resRech != null)
+        return res.status(200).json(resRech);
+
+    return res.status(500).json("user not found");
+
+}
 
 
 module.exports = {
-    userSignUp, userLogin, userInfo, userToken, addUserCard
+    userSignUp, userLogin, userInfo, userToken, addUserCard, userInfoById
 }

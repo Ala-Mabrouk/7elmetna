@@ -11,6 +11,7 @@ import {
   NgxQrcodeElementTypes,
   NgxQrcodeErrorCorrectionLevels,
 } from '@techiediaries/ngx-qrcode';
+import { UserService } from '../Services/user.service';
 
 @Component({
   selector: 'app-project-details',
@@ -30,24 +31,43 @@ export class ProjectDetailsComponent implements OnInit {
   elementType = NgxQrcodeElementTypes.URL;
   correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
   value = 'https://www.techiediaries.com/';
+  chartyValue: any = {};
+  userCardNB: String = '';
   constructor(
     private projectService: ProjectService,
     private route: ActivatedRoute,
 
     private formBuilder: FormBuilder,
-    private uploadFileServices: UploadFilesService
+    private uploadFileServices: UploadFilesService,
+    private userServices: UserService
   ) {}
 
   ngOnInit(): void {
     this.initData();
+    this.getUSerCardNb();
   }
-
-  initData() {
+  updateValue(event: any) {
+    var valString: any = {};
+    valString.value = event.target.value;
+    valString.dateDon = new Date().toISOString();
+    valString.projectGettingMonny = this.projectValue.projectFullName;
+    valString.projectCard = this.userCardNB;
+    this.chartyValue = JSON.stringify(valString);
+    console.log(valString);
+  }
+  async initData() {
     let idP = this.route.snapshot.params['Pid'];
-    this.projectService.getProjectDetails(idP).subscribe((res: any) => {
-      console.log(res);
-      this.projectValue = res;
-    });
+    await this.projectService
+      .getProjectDetails(idP)
+      .toPromise()
+      .then((res: any) => {
+        console.log(res);
+        this.projectValue = res;
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+    await this.getUSerCardNb();
   }
 
   selectFiles(event: any): void {
@@ -100,5 +120,21 @@ export class ProjectDetailsComponent implements OnInit {
           }
         );
     }
+  }
+  async getUSerCardNb() {
+    await this.userServices
+      .getUserInfoById(this.projectValue.projectOwner)
+      .toPromise()
+      .then((res: any) => {
+        console.log('res is');
+        console.log(res[0]);
+
+        this.userCardNB = res[0].userNumCardFunding;
+      })
+      .catch((err) => {
+        console.log('erreur in the qdjqlkdjlf');
+
+        console.log(err);
+      });
   }
 }
