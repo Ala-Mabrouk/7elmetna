@@ -15,10 +15,13 @@ export class ProjectService {
   getProjectDetails(pID: number) {
     return this.httpClient.get(this.url + 'getProjectDetails/' + pID);
   }
-  addNewProject(p: Project, auth: String) {
-    return this.httpClient.post<any>(this.url + '/newProject', p);
+  addNewProject(p: any) {
+    return this.httpClient.post<any>(this.url + 'newProject', p);
   }
   getProjectOfLogedUser(idU: any) {
     return this.httpClient.get(this.url + 'userProjects/' + idU);
+  }
+  getProjectByName(nom: any) {
+    return this.httpClient.get(this.url + 'projectName/' + nom);
   }
 }

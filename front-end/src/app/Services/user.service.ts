@@ -39,4 +39,8 @@ export class UserService {
     const t = localStorage.getItem('user_web_token');
     return this.httpClient.get(this.url + t);
   }
+
+  getUserInfoById(id: String) {
+    return this.httpClient.get(this.url + 'byID/' + id);
+  }
 }

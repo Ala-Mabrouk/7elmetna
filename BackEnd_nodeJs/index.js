@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const userRoute = require("./Routes/userRoutes")
 const filesRoute = require("./Routes/filesRoutes")
 const projectRoute = require("./Routes/projectRoutes.js")
+const sharedDataRoute = require("./Routes/sharedInfoRoutes")
 
 
 
@@ -20,5 +21,6 @@ app.use(cors())
 app.use('/user', userRoute)
 app.use('/project', projectRoute)
 app.use('/files', filesRoute)
+app.use("/info", sharedDataRoute)
 
 module.exports = app

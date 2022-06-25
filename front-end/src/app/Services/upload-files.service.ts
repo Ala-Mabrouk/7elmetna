@@ -30,8 +30,6 @@ export class UploadFilesService {
       }
     );
 
-    this.http.post('http://localhost:3033/files/uploadToAng', formData);
-
     return this.http.request(req);
   }
 }

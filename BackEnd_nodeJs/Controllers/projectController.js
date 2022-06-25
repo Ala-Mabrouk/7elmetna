@@ -24,43 +24,17 @@ function getMailFromToken(req) {
     });
 }
 
-const addProject = (req, res) => {
+const addProject = async (req, res) => {
     let tempProjectInfo = req.body;
 
     // getting  domaine-id from domaine-label:
-    let domaineID
-    connectionDb.query(
-        "select domaineId from domaines where domaineLabelle=?",
-        [tempProjectInfo.projectDomaine],
-        (err, resq) => {
-            if (!err) {
-                if (resq.length > 0) {
-                    domaineID = resq[0].domaineId
-                }
-                //res[0].domaineId;
-            } else {
-                console.log(err);
-            }
-        }
-    );
-    //need to get user Id from email:
-    getMailFromToken(req);
-    console.log("this is mail temp : " + mailtemp);
-    var userID = "123"
+    let domaineID 
 
-    connectionDb.query(
-        "select userId from users where userEmail=?",
-        [mailtemp + ""],
-        (err, resQu) => {
-            if (!err) {
-                if (resQu.length > 0) {
-                    userID = resQu[0].userId
-                }
-            } else {
-                console.log(err);
-            }
-        }
-    );
+    console.log(tempProjectInfo.projectDomaine);
+    const d = await query("select domaineId from domaines where domaineLabelle=?", [tempProjectInfo.projectDomaine])
+         
+        domaineID=d[0].domaineId
+ 
     let testQuery =
         "select projectId from projects p, domaines d where p.projectShortName=? and p.projectDomaine=d.domaineId and d.domaineLabelle=? ";
     connectionDb.query(
@@ -69,11 +43,10 @@ const addProject = (req, res) => {
         (err, restQuery) => {
             if (!err) {
                 //insert new project
-                console.log(userID + "-------" + domaineID);
-                insertQuery =
+                 insertQuery =
                     "Insert into projects(projectShortName,projectFullName,projectShortDescription,projectFullDescription,projectLocation,projectDomaine,projectDemand,projectLimits,projectOwner) values(?,?,?,?,?,?,?,?,?)";
                 connectionDb.query(
-                    insertQuery,
+                    insertQuery,  
                     [
                         tempProjectInfo.projectShortName,
                         tempProjectInfo.projectFullName,
@@ -83,13 +56,12 @@ const addProject = (req, res) => {
                         domaineID,
                         tempProjectInfo.projectDemand,
                         tempProjectInfo.projectLimits,
-                        userID,
-                    ],
+                        tempProjectInfo.projectOwner,  
+                    ],   
                     (err, resInsert) => {
-                        if (!err) {
-                            //return res.status(200).json("Project is saved in data base");
-                        } else {
-                            return res.status(500).json(err);
+                        if (err) { 
+                            console.log(err);
+                            return resInsert.status(500).json(err);
                         }
                     }
                 );
@@ -99,49 +71,19 @@ const addProject = (req, res) => {
         }
     );
 
-    // in case of some media files 
-    if (tempProjectInfo.mediaURL != null) {
-        console.log("checked the media");
-        //need to move media to specific folder 
-        // TODO:**************
 
-        //getting projectID
-        connectionDb.query(
-            "select projectId from projects p, domaines d where p.projectShortName=? and p.projectDomaine=d.domaineId and d.domaineLabelle=? ",
-            [tempProjectInfo.projectShortName, tempProjectInfo.projectDomaine],
-            (err, resQu) => {
-                if (!err) {
-                    if (resQu.length > 0) {
-                        var today = new Date();
-                        var currentDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-                        insertQuery =
-                            "Insert into infoMedias(addedDate,mediaURL,relatedTo,addedBy) values(?,?,?,?)";
-                        connectionDb.query(
-                            insertQuery,
-                            [
-                                currentDate,
-                                tempProjectInfo.mediaURL,
-                                resQu[0].projectId,
-                                userID,
-                            ],
-                            (err, resInsert) => {
-                                if (!err) {
-                                    return res.status(200).json("media and project are saved in data base");
-                                } else {
-                                    return res.status(500).json(err);
-                                }
-                            }
-                        );
-                    }
-                } else {
-                    console.log(err);
-                }
-            }
-        );
-    }
-    return res.status(200).json("Project is saved in data base");
+    const a = await query("select * from projects where projectFullName=? or projectShortName=? ", [tempProjectInfo.projectFullName, tempProjectInfo.projectFullName])
 
+    console.log(a[0]);
+    return res.status(200).json(a);  
 };
+const getprojectByName=async (req,res)=>{
+
+    const a = await query("select * from projects where projectFullName=? or projectShortName=? ", [req.params.nomProjet, req.params.nomProjet])
+
+    console.log(a[0]);
+    return res.status(200).json(a);
+}
 
 const getProjectDetails = async (req, res) => {
     let projectFullData = ""
@@ -164,6 +106,7 @@ const getProjectDetails = async (req, res) => {
         try {
             projectFullData.listMedia = await
                 query(queryMediaProject, [projectId])
+            projectFullData.projectThumbNail = 'http://localhost:3033/' + projectFullData.listMedia[0].mediaURL;
         } catch (errMediaInfo) {
             console.log(errMediaInfo);
         }
@@ -271,7 +214,7 @@ const getProjectsOfUser = async (req, res) => {
     if (projectFullData[0] != null) {
         return res.status(200).json(projectFullData)
     } else {
-        return res.status(500).json("smthing bad happend !")
+        return res.status(200).json(projectFullData)
     }
 
 };
@@ -281,7 +224,8 @@ module.exports = {
     getProjectDetails,
     getAllProjects,
     getProjectMedia,
-    getProjectsOfUser
+    getProjectsOfUser,
+    getprojectByName
 };
         // await new Promise(function (resolve, reject) {
         //     connectionDb.query(queryDataProject, [projectId, projectId], (errDataProjet, resDataProjet) => {
@@ -317,3 +261,44 @@ module.exports = {
         //     }
 
         // })
+
+            // // in case of some media files 
+    // if (tempProjectInfo.mediaURL != null) {
+    //     console.log("checked the media");
+    //     //need to move media to specific folder 
+    //     // TODO:**************
+
+    //     //getting projectID
+    //     connectionDb.query(
+    //         "select projectId from projects p, domaines d where p.projectShortName=? and p.projectDomaine=d.domaineId and d.domaineLabelle=? ",
+    //         [tempProjectInfo.projectShortName, tempProjectInfo.projectDomaine],
+    //         (err, resQu) => {
+    //             if (!err) {
+    //                 if (resQu.length > 0) {
+    //                     var today = new Date();
+    //                     var currentDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    //                     insertQuery =
+    //                         "Insert into infoMedias(addedDate,mediaURL,relatedTo,addedBy) values(?,?,?,?)";
+    //                     connectionDb.query(
+    //                         insertQuery,
+    //                         [
+    //                             currentDate,
+    //                             tempProjectInfo.mediaURL,
+    //                             resQu[0].projectId,
+    //                             userID,
+    //                         ],
+    //                         (err, resInsert) => {
+    //                             if (!err) {
+    //                                 return res.status(200).json("media and project are saved in data base");
+    //                             } else {
+    //                                 return res.status(500).json(err);
+    //                             }
+    //                         }
+    //                     );
+    //                 }
+    //             } else {
+    //                 console.log(err);
+    //             }
+    //         }
+    //     );
+    // }

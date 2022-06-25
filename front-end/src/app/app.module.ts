@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -17,10 +16,11 @@ import { LogInSignUpComponent } from './log-in-sign-up/log-in-sign-up.component'
 import { AddProjectPage2Component } from './add-project-page2/add-project-page2.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
- import { SwiperModule } from 'swiper/angular';
+import { SwiperModule } from 'swiper/angular';
 import { GalleryComponent } from './gallery/gallery.component';
 import { FooterComponent } from './footer/footer.component';
 import { PaymentComponent } from './payment/payment.component';
+import { AddUserCardComponent } from './add-user-card/add-user-card.component';
 
 @NgModule({
   declarations: [
@@ -34,10 +34,11 @@ import { PaymentComponent } from './payment/payment.component';
     MyProjectComponent,
     PageNotFoundComponent,
     LogInSignUpComponent,
-     GalleryComponent,
+    GalleryComponent,
     FooterComponent,
     AddProjectPage2Component,
-    PaymentComponent
+    PaymentComponent,
+    AddUserCardComponent,
   ],
 
   imports: [

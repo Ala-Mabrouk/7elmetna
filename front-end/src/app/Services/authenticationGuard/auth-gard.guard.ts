@@ -13,7 +13,7 @@ import { UserService } from '../user.service';
   providedIn: 'root',
 })
 export class AuthGardGuard implements CanActivate {
-  constructor(private userServices: UserService, private route: Router) {}
+  constructor(private userServices: UserService, private routeGo: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -36,7 +36,7 @@ export class AuthGardGuard implements CanActivate {
     if (isloged == true) {
       return true;
     } else {
-      this.route.navigate(['/login']);
+      this.routeGo.navigate(['/login/' + route.url]);
       return false;
     }
   }

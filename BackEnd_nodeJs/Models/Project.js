@@ -26,6 +26,7 @@ function fillProjectFromJSON(elmentJson) {
     const hour = minute * 60;
     const day = hour * 24;
     tempP.projectId = elmentJson.projectId;
+    tempP.projectOwner = elmentJson.projectOwner
     tempP.projectShortName = elmentJson.projectShortName;
     tempP.projectFullName = elmentJson.projectFullName;
     tempP.projectShortDesc = elmentJson.projectShortDescription;
@@ -58,7 +59,7 @@ function fillProjectFromJSON(elmentJson) {
     if (elmentJson.listMedia) {
         tempP.listMedia = elmentJson.listMedia
 
-        tempP.projectThumbNail = " http://localhost:3033/" + elmentJson.listMedia[0].mediaURL;
+        tempP.projectThumbNail = 'http://localhost:3033/' + elmentJson.listMedia[0].mediaURL;
     } else {
         tempP.projectThumbNail = "../../assets/cover-photo.png";
     }

@@ -1,4 +1,3 @@
-<app-navbar></app-navbar>
 <app-slogan></app-slogan>
 <div class="container">
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
@@ -34,15 +33,20 @@
       <use xlink:href="#info-fill" />
     </svg>
     <div>
-      <b>Le montant totale :</b> 3300 dt ( 3000 Dt + 300: 10 % pour note site
-      web )
+      <b>Le montant totale :</b> {{ newMontant }} dt (
+      {{ ProjectInfo.ProjectMontant }} Dt + 10 % pour note site web )
     </div>
   </div>
 
   <h5 class="card-title">Ajouter votre video</h5>
   <div class="mb-3">
-    <input class="form-control" type="file"           accept="video/*"
-    id="formFileMultiple" multiple hidden />
+    <input
+      class="form-control"
+      type="file"
+      accept="video/mp4"
+      id="formFileMultiple"
+      (change)="selectVedio($event)"
+    />
   </div>
   <h5 class="card-title">Ajouter votre galrey de photos</h5>
   <div class="row">
@@ -62,12 +66,16 @@
         [disabled]="!selectedFiles"
         (click)="uploadFiles()"
       >
-        Upload
+        p
       </button>
     </div>
   </div>
   <div class="row">
-    <img *ngFor="let preview of previews" [src]="preview" class="preview col-4" />
+    <img
+      *ngFor="let preview of previews"
+      [src]="preview"
+      class="preview col-4"
+    />
   </div>
   <div *ngIf="message.length" class="alert alert-secondary my-3" role="alert">
     <ul *ngFor="let msg of message; let i = index">
@@ -89,5 +97,24 @@
       </div>
     </div>
   </div>
-
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+    <label class="form-check-label" for="exampleCheck1"
+      >je declare sur l'honneur que tous ces informations sont corrects
+    </label>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      class="btn btn-success btn-sm"
+      [disabled]="!selectedFiles"
+      (click)="uploadFiles()"
+    >
+      Enregisterer
+    </button>
+  </div>
 </div>

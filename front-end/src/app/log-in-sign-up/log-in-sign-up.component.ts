@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../Services/user.service';
 
 @Component({
@@ -12,14 +12,17 @@ export class LogInSignUpComponent implements OnInit {
   infoClass = 'container';
   logINform: any = FormGroup;
   signUPform: any = FormGroup;
+  next: String = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private route: Router,
+    private routeAct: ActivatedRoute,
     private userService: UserService
   ) {}
 
   ngOnInit(): void {
+    this.next = this.routeAct.snapshot.params['nextURL'];
     this.logINform = this.formBuilder.group({
       email: [null],
       password: [null],
@@ -51,7 +54,7 @@ export class LogInSignUpComponent implements OnInit {
       if (res != null) {
         console.log(res);
         localStorage.setItem('user_web_token', res.token);
-        this.route.navigate(['allproject']);
+        this.route.navigate([this.next]);
       }
     });
   }
@@ -71,7 +74,7 @@ export class LogInSignUpComponent implements OnInit {
       if (res != null) {
         console.log(res);
         localStorage.setItem('user_web_token', res.token);
-        this.route.navigate(['allproject']);
+        this.route.navigate([this.next]);
       }
     });
   }
